@@ -1,0 +1,87 @@
+/* =============================================================================
+   Gemini UI Redesign — Floating Sidebar v5
+   Rounded, floating, soft UI design
+   ============================================================================= */
+
+/* ================================
+   FLOATING SIDEBAR
+   Rounded corners, margin from edges, soft elevation
+   ================================ */
+bard-sidenav,
+bard-sidenav[style] {
+    border-radius: 16px !important;
+    margin: 12px !important;
+    height: calc(100vh - 24px) !important;
+    left: 0 !important;
+    top: 0 !important;
+    background: #1a1a1d !important;
+    border: none !important;
+    border-right: none !important;
+    border-right-width: 0px !important;
+    box-shadow:
+        0 2px 16px rgba(0, 0, 0, 0.3),
+        0 0 1px rgba(255, 255, 255, 0.05) !important;
+    overflow: hidden !important;
+}
+
+/* Inner content inherits rounded corners */
+side-navigation-content {
+    border-radius: 16px !important;
+    background: #1a1a1d !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+/* Kill any border on mat-drawer */
+.mat-drawer-side {
+    border-right: none !important;
+    border: none !important;
+}
+
+/* Content area */
+mat-sidenav-content,
+.mat-drawer-content {
+    border-left: none !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+/* ================================
+   HIDE LOCATION FOOTER
+   (exact custom element from Gemini DOM)
+   ================================ */
+location-footer {
+    display: none !important;
+}
+
+/* ================================
+   MENU BUTTON ALIGNMENT
+   Menu at y:20, Search at y:28 → nudge 8px down + right
+   ================================ */
+side-nav-menu-button,
+side-nav-menu-button .main-menu-button {
+    margin-left: 6px !important;
+    margin-top: 8px !important;
+}
+
+/* ================================
+   SOFT UI TOUCHES
+   ================================ */
+
+/* Scrollbar inside sidebar */
+bard-sidenav ::-webkit-scrollbar {
+    width: 4px !important;
+}
+
+bard-sidenav ::-webkit-scrollbar-track {
+    background: transparent !important;
+}
+
+bard-sidenav ::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.08) !important;
+    border-radius: 9999px !important;
+}
+
+bard-sidenav ::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.15) !important;
+}
