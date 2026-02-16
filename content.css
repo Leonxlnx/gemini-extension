@@ -65,6 +65,15 @@ side-nav-menu-button .main-menu-button {
 }
 
 /* ================================
+   GEMINI TEXT SPACING
+   More breathing room from sidebar edge
+   ================================ */
+bard-logo,
+bard-logo .logo {
+    margin-left: 12px !important;
+}
+
+/* ================================
    SOFT UI TOUCHES
    ================================ */
 
