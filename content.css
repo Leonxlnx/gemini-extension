@@ -112,32 +112,40 @@ input-container {
     background: transparent !important;
     border: none !important;
     box-shadow: none !important;
+    overflow: visible !important;
 }
 
 .input-area-container {
-    background: linear-gradient(145deg, #1c1c1f, #191919) !important;
+    background: linear-gradient(145deg, #1c1c1f, #18181a) !important;
     border-radius: 28px !important;
-    border: 1px solid rgba(255, 255, 255, 0.05) !important;
-    border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border: none !important;
     box-shadow:
-        6px 6px 16px rgba(0, 0, 0, 0.6),
-        -4px -4px 12px rgba(255, 255, 255, 0.02),
-        inset 0 1px 0 rgba(255, 255, 255, 0.04) !important;
+        6px 6px 18px rgba(0, 0, 0, 0.55),
+        -3px -3px 10px rgba(255, 255, 255, 0.02),
+        inset 0 1px 0 rgba(255, 255, 255, 0.06),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.2) !important;
     transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    overflow: visible !important;
 }
 
 .input-area-container:focus-within {
-    border-color: rgba(138, 180, 248, 0.15) !important;
-    border-top-color: rgba(138, 180, 248, 0.2) !important;
     box-shadow:
-        8px 8px 20px rgba(0, 0, 0, 0.6),
-        -4px -4px 12px rgba(255, 255, 255, 0.025),
-        inset 0 1px 0 rgba(255, 255, 255, 0.06),
-        0 0 24px rgba(138, 180, 248, 0.06) !important;
+        8px 8px 22px rgba(0, 0, 0, 0.55),
+        -3px -3px 10px rgba(255, 255, 255, 0.025),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.15),
+        0 0 30px rgba(138, 180, 248, 0.05) !important;
 }
 
 hallucination-disclaimer {
     display: none !important;
+}
+
+/* Ensure suggestion buttons aren't clipped */
+.bottom-section-container,
+.cards-container {
+    overflow: visible !important;
+    z-index: 1 !important;
 }
 
 
