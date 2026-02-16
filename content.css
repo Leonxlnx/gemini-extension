@@ -99,6 +99,62 @@ input-container.input-gradient::after,
 }
 
 /* ================================
+   SOFT UI — INPUT FIELD
+   Neumorphic inset with subtle glow
+   ================================ */
+input-container {
+    background: #1a1a1d !important;
+    border-radius: 24px !important;
+    border: 1px solid rgba(255, 255, 255, 0.06) !important;
+    box-shadow:
+        inset 2px 2px 6px rgba(0, 0, 0, 0.5),
+        inset -2px -2px 6px rgba(255, 255, 255, 0.03),
+        0 2px 12px rgba(0, 0, 0, 0.3) !important;
+    transition: box-shadow 0.3s ease, border-color 0.3s ease !important;
+}
+
+input-container:focus-within {
+    border-color: rgba(138, 180, 248, 0.2) !important;
+    box-shadow:
+        inset 2px 2px 6px rgba(0, 0, 0, 0.4),
+        inset -2px -2px 6px rgba(255, 255, 255, 0.04),
+        0 0 20px rgba(138, 180, 248, 0.08),
+        0 4px 16px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* ================================
+   SOFT UI — SUGGESTION BUTTONS
+   Elevated pill buttons with hover lift
+   ================================ */
+button.card-zero-state {
+    background: #1a1a1d !important;
+    border: 1px solid rgba(255, 255, 255, 0.06) !important;
+    border-radius: 20px !important;
+    box-shadow:
+        3px 3px 8px rgba(0, 0, 0, 0.5),
+        -2px -2px 6px rgba(255, 255, 255, 0.03) !important;
+    transition: all 0.25s ease !important;
+    padding: 10px 20px !important;
+}
+
+button.card-zero-state:hover {
+    background: #1f1f22 !important;
+    border-color: rgba(255, 255, 255, 0.1) !important;
+    box-shadow:
+        4px 4px 12px rgba(0, 0, 0, 0.5),
+        -3px -3px 8px rgba(255, 255, 255, 0.04),
+        0 0 16px rgba(138, 180, 248, 0.06) !important;
+    transform: translateY(-1px) !important;
+}
+
+button.card-zero-state:active {
+    transform: translateY(0px) !important;
+    box-shadow:
+        inset 2px 2px 6px rgba(0, 0, 0, 0.5),
+        inset -2px -2px 4px rgba(255, 255, 255, 0.03) !important;
+}
+
+/* ================================
    SOFT UI TOUCHES
    ================================ */
 
