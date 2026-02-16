@@ -112,7 +112,6 @@ input-container {
     background: transparent !important;
     border: none !important;
     box-shadow: none !important;
-    overflow: visible !important;
 }
 
 .input-area-container {
@@ -125,7 +124,6 @@ input-container {
         inset 0 1px 0 rgba(255, 255, 255, 0.07),
         inset 0 -1px 0 rgba(0, 0, 0, 0.25) !important;
     transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
-    overflow: visible !important;
 }
 
 .input-area-container:focus-within {
@@ -240,12 +238,6 @@ input-container [class*="dropdown"]:hover {
 
 hallucination-disclaimer {
     display: none !important;
-}
-
-/* Suggestion buttons — visible above input, no layout shift */
-button.card-zero-state {
-    position: relative !important;
-    z-index: 10 !important;
 }
 
 

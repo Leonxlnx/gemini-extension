@@ -2,7 +2,6 @@
  * Gemini UI Redesign — Floating Sidebar v5 JS
  * - Floating rounded sidebar
  * - Hides location-footer
- * - Enforces suggestion buttons visibility
  */
 
 (() => {
@@ -54,43 +53,12 @@
         }
     }
 
-    // === ENFORCE SUGGESTION BUTTONS VISIBILITY ===
-    let lastEnforce = 0;
-    function enforceButtonVisibility() {
-        const now = Date.now();
-        if (now - lastEnforce < 200) return; // throttle
-        lastEnforce = now;
-
-        // Only walk up from actual buttons — don't touch layout containers
-        document.querySelectorAll('button.card-zero-state').forEach(btn => {
-            let parent = btn.parentElement;
-            let depth = 0;
-            while (parent && depth < 4) {
-                const tag = parent.tagName.toLowerCase();
-                // Stop before major layout containers
-                if (tag === 'chat-window' || tag === 'bard-sidenav-content' ||
-                    tag === 'mat-sidenav-content' || tag === 'body') break;
-                const cs = getComputedStyle(parent);
-                if (cs.overflow === 'hidden' || cs.overflowY === 'hidden') {
-                    parent.style.setProperty('overflow', 'visible', 'important');
-                }
-                parent = parent.parentElement;
-                depth++;
-            }
-        });
-    }
-
     // Apply after Angular renders
     setTimeout(applyFloatingSidebar, 500);
     setTimeout(applyFloatingSidebar, 1500);
     setTimeout(applyFloatingSidebar, 3000);
 
-    // Enforce buttons on same schedule + more
-    setTimeout(enforceButtonVisibility, 800);
-    setTimeout(enforceButtonVisibility, 2000);
-    setTimeout(enforceButtonVisibility, 4000);
-
-    // MutationObserver: re-apply when Angular overrides
+    // MutationObserver: re-apply sidebar styles when Angular overrides
     function startObserver() {
         const sidenav = document.querySelector('bard-sidenav');
         if (!sidenav) {
@@ -109,18 +77,5 @@
         });
     }
 
-    // Body-wide observer to catch dynamic re-renders hiding buttons
-    function startBodyObserver() {
-        const bodyObserver = new MutationObserver(() => {
-            requestAnimationFrame(enforceButtonVisibility);
-        });
-
-        bodyObserver.observe(document.body, {
-            childList: true,
-            subtree: true,
-        });
-    }
-
     startObserver();
-    startBodyObserver();
 })();
