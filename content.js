@@ -55,37 +55,23 @@
     }
 
     // === ENFORCE SUGGESTION BUTTONS VISIBILITY ===
+    let lastEnforce = 0;
     function enforceButtonVisibility() {
-        // Force overflow:visible on ALL containers between input and buttons
-        const selectors = [
-            'input-container',
-            '.input-area-container',
-            '.bottom-section-container',
-            '.cards-container',
-            '.zero-state-cards',
-            '.input-area',
-            '.input-wrapper',
-            '.bottom-container',
-            'zero-state-v2',
-            'zero-state',
-            '.content-container',
-            'chat-window',
-            '.chat-container',
-        ];
+        const now = Date.now();
+        if (now - lastEnforce < 200) return; // throttle
+        lastEnforce = now;
 
-        selectors.forEach(sel => {
-            document.querySelectorAll(sel).forEach(el => {
-                el.style.setProperty('overflow', 'visible', 'important');
-            });
-        });
-
-        // Also walk up from any card-zero-state button to ensure parents aren't clipping
+        // Only walk up from actual buttons — don't touch layout containers
         document.querySelectorAll('button.card-zero-state').forEach(btn => {
             let parent = btn.parentElement;
             let depth = 0;
-            while (parent && depth < 8) {
-                const overflow = getComputedStyle(parent).overflow;
-                if (overflow === 'hidden' || overflow === 'clip') {
+            while (parent && depth < 4) {
+                const tag = parent.tagName.toLowerCase();
+                // Stop before major layout containers
+                if (tag === 'chat-window' || tag === 'bard-sidenav-content' ||
+                    tag === 'mat-sidenav-content' || tag === 'body') break;
+                const cs = getComputedStyle(parent);
+                if (cs.overflow === 'hidden' || cs.overflowY === 'hidden') {
                     parent.style.setProperty('overflow', 'visible', 'important');
                 }
                 parent = parent.parentElement;

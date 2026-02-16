@@ -242,11 +242,10 @@ hallucination-disclaimer {
     display: none !important;
 }
 
-/* Ensure suggestion buttons aren't clipped */
-.bottom-section-container,
-.cards-container {
-    overflow: visible !important;
-    z-index: 1 !important;
+/* Suggestion buttons — visible above input, no layout shift */
+button.card-zero-state {
+    position: relative !important;
+    z-index: 10 !important;
 }
 
 
