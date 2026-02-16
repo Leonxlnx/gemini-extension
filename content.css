@@ -40,11 +40,16 @@ side-navigation-content {
 
 /* Content area */
 mat-sidenav-content,
-.mat-drawer-content {
+bard-sidenav-content,
+.mat-drawer-content,
+.mat-sidenav-content,
+body,
+html {
     border-left: none !important;
     border: none !important;
     box-shadow: none !important;
     background: #1e1f20 !important;
+    background-color: #1e1f20 !important;
 }
 
 /* ================================
