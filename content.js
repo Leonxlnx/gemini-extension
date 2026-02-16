@@ -2,6 +2,7 @@
  * Gemini UI Redesign — Floating Sidebar v5 JS
  * - Floating rounded sidebar
  * - Hides location-footer
+ * - Enforces suggestion buttons visibility
  */
 
 (() => {
@@ -53,10 +54,55 @@
         }
     }
 
+    // === ENFORCE SUGGESTION BUTTONS VISIBILITY ===
+    function enforceButtonVisibility() {
+        // Force overflow:visible on ALL containers between input and buttons
+        const selectors = [
+            'input-container',
+            '.input-area-container',
+            '.bottom-section-container',
+            '.cards-container',
+            '.zero-state-cards',
+            '.input-area',
+            '.input-wrapper',
+            '.bottom-container',
+            'zero-state-v2',
+            'zero-state',
+            '.content-container',
+            'chat-window',
+            '.chat-container',
+        ];
+
+        selectors.forEach(sel => {
+            document.querySelectorAll(sel).forEach(el => {
+                el.style.setProperty('overflow', 'visible', 'important');
+            });
+        });
+
+        // Also walk up from any card-zero-state button to ensure parents aren't clipping
+        document.querySelectorAll('button.card-zero-state').forEach(btn => {
+            let parent = btn.parentElement;
+            let depth = 0;
+            while (parent && depth < 8) {
+                const overflow = getComputedStyle(parent).overflow;
+                if (overflow === 'hidden' || overflow === 'clip') {
+                    parent.style.setProperty('overflow', 'visible', 'important');
+                }
+                parent = parent.parentElement;
+                depth++;
+            }
+        });
+    }
+
     // Apply after Angular renders
     setTimeout(applyFloatingSidebar, 500);
     setTimeout(applyFloatingSidebar, 1500);
     setTimeout(applyFloatingSidebar, 3000);
+
+    // Enforce buttons on same schedule + more
+    setTimeout(enforceButtonVisibility, 800);
+    setTimeout(enforceButtonVisibility, 2000);
+    setTimeout(enforceButtonVisibility, 4000);
 
     // MutationObserver: re-apply when Angular overrides
     function startObserver() {
@@ -77,5 +123,18 @@
         });
     }
 
+    // Body-wide observer to catch dynamic re-renders hiding buttons
+    function startBodyObserver() {
+        const bodyObserver = new MutationObserver(() => {
+            requestAnimationFrame(enforceButtonVisibility);
+        });
+
+        bodyObserver.observe(document.body, {
+            childList: true,
+            subtree: true,
+        });
+    }
+
     startObserver();
+    startBodyObserver();
 })();
