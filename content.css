@@ -43,13 +43,15 @@ mat-sidenav-content,
 bard-sidenav-content,
 .mat-drawer-content,
 .mat-sidenav-content,
+.mat-drawer-container,
+mat-sidenav-container,
 body,
 html {
     border-left: none !important;
     border: none !important;
     box-shadow: none !important;
-    background: #1e1f20 !important;
-    background-color: #1e1f20 !important;
+    background: #111113 !important;
+    background-color: #111113 !important;
 }
 
 /* ================================
