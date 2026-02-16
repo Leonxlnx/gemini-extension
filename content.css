@@ -103,6 +103,12 @@ input-container.input-gradient::after,
    Neumorphic inset with subtle glow
    ================================ */
 input-container {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+.input-area-container {
     background: #1a1a1d !important;
     border-radius: 24px !important;
     border: 1px solid rgba(255, 255, 255, 0.06) !important;
@@ -113,7 +119,7 @@ input-container {
     transition: box-shadow 0.3s ease, border-color 0.3s ease !important;
 }
 
-input-container:focus-within {
+.input-area-container:focus-within {
     border-color: rgba(138, 180, 248, 0.2) !important;
     box-shadow:
         inset 2px 2px 6px rgba(0, 0, 0, 0.4),
@@ -121,6 +127,11 @@ input-container:focus-within {
         0 0 20px rgba(138, 180, 248, 0.08),
         0 4px 16px rgba(0, 0, 0, 0.3) !important;
 }
+
+hallucination-disclaimer {
+    display: none !important;
+}
+
 
 /* ================================
    SOFT UI — SUGGESTION BUTTONS
