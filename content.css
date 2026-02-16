@@ -32,10 +32,17 @@ side-navigation-content {
     box-shadow: none !important;
 }
 
-/* Kill any border on mat-drawer */
-.mat-drawer-side {
-    border-right: none !important;
+/* Kill ANY border on mat-drawer / sidenav / content */
+.mat-drawer-side,
+.mat-drawer,
+mat-sidenav,
+[class*="mat-drawer"],
+[class*="mat-sidenav"],
+bard-sidenav-content {
     border: none !important;
+    border-right: none !important;
+    border-left: none !important;
+    outline: none !important;
 }
 
 /* Content area */
@@ -47,7 +54,6 @@ bard-sidenav-content,
 mat-sidenav-container,
 body,
 html {
-    border-left: none !important;
     border: none !important;
     box-shadow: none !important;
     background: #111113 !important;
@@ -100,7 +106,7 @@ input-container.input-gradient::after,
 
 /* ================================
    SOFT UI — INPUT FIELD
-   Neumorphic inset with subtle glow
+   Premium neumorphic with depth
    ================================ */
 input-container {
     background: transparent !important;
@@ -109,23 +115,25 @@ input-container {
 }
 
 .input-area-container {
-    background: #1a1a1d !important;
-    border-radius: 24px !important;
-    border: 1px solid rgba(255, 255, 255, 0.06) !important;
+    background: linear-gradient(145deg, #1c1c1f, #191919) !important;
+    border-radius: 28px !important;
+    border: 1px solid rgba(255, 255, 255, 0.05) !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
     box-shadow:
-        inset 2px 2px 6px rgba(0, 0, 0, 0.5),
-        inset -2px -2px 6px rgba(255, 255, 255, 0.03),
-        0 2px 12px rgba(0, 0, 0, 0.3) !important;
-    transition: box-shadow 0.3s ease, border-color 0.3s ease !important;
+        6px 6px 16px rgba(0, 0, 0, 0.6),
+        -4px -4px 12px rgba(255, 255, 255, 0.02),
+        inset 0 1px 0 rgba(255, 255, 255, 0.04) !important;
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1) !important;
 }
 
 .input-area-container:focus-within {
-    border-color: rgba(138, 180, 248, 0.2) !important;
+    border-color: rgba(138, 180, 248, 0.15) !important;
+    border-top-color: rgba(138, 180, 248, 0.2) !important;
     box-shadow:
-        inset 2px 2px 6px rgba(0, 0, 0, 0.4),
-        inset -2px -2px 6px rgba(255, 255, 255, 0.04),
-        0 0 20px rgba(138, 180, 248, 0.08),
-        0 4px 16px rgba(0, 0, 0, 0.3) !important;
+        8px 8px 20px rgba(0, 0, 0, 0.6),
+        -4px -4px 12px rgba(255, 255, 255, 0.025),
+        inset 0 1px 0 rgba(255, 255, 255, 0.06),
+        0 0 24px rgba(138, 180, 248, 0.06) !important;
 }
 
 hallucination-disclaimer {
