@@ -113,6 +113,7 @@ input-container {
     border: none !important;
     box-shadow: none !important;
     overflow: visible !important;
+    overflow-x: clip !important;
 }
 
 .input-area-container {
