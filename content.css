@@ -71,7 +71,15 @@ location-footer {
 input-container {
     background: #111113 !important;
     border: none !important;
+    border-top: none !important;
+    border-bottom: none !important;
     box-shadow: none !important;
+    outline: none !important;
+}
+
+/* Hide disclaimer text below input */
+hallucination-disclaimer {
+    display: none !important;
 }
 
 /* ================================
