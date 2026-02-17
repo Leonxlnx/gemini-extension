@@ -78,12 +78,8 @@ input-container {
 }
 
 /* ================================
-   INPUT FIELD — model-panel color as background
-   No layout changes (no border/radius/padding/margin)
+   INPUT FIELD — fully default, no overrides
    ================================ */
-.input-area-container {
-    background: rgba(28, 28, 34, 0.95) !important;
-}
 
 /* ================================
    TOOLBAR BUTTONS — +, Tools, Mic, Send
