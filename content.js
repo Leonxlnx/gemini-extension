@@ -7,6 +7,22 @@
 (() => {
     'use strict';
 
+    // === BACKGROUND IMAGE ===
+    function applyBackground() {
+        const bgUrl = chrome.runtime.getURL('bg.png');
+        document.body.style.setProperty('background-image', `url("${bgUrl}")`, 'important');
+        document.body.style.setProperty('background-size', 'cover', 'important');
+        document.body.style.setProperty('background-position', 'center center', 'important');
+        document.body.style.setProperty('background-repeat', 'no-repeat', 'important');
+        document.body.style.setProperty('background-attachment', 'fixed', 'important');
+    }
+
+    // Apply bg early
+    if (document.body) {
+        applyBackground();
+    } else {
+        document.addEventListener('DOMContentLoaded', applyBackground);
+    }
     function applyFloatingSidebar() {
         const sidenav = document.querySelector('bard-sidenav');
         if (!sidenav) return;

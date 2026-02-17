@@ -45,19 +45,32 @@ bard-sidenav-content {
     outline: none !important;
 }
 
-/* Content area background */
+/* Content area background — transparent for bg image */
 mat-sidenav-content,
 bard-sidenav-content,
 .mat-drawer-content,
 .mat-sidenav-content,
 .mat-drawer-container,
-mat-sidenav-container,
+mat-sidenav-container {
+    background: transparent !important;
+    background-color: transparent !important;
+}
+
 body,
 html {
     border: none !important;
     box-shadow: none !important;
-    background: #111113 !important;
-    background-color: #111113 !important;
+}
+
+/* Main chat area transparent */
+.conversation-container,
+.zero-state-container,
+.chat-window,
+model-response,
+user-query,
+.response-container {
+    background: transparent !important;
+    background-color: transparent !important;
 }
 
 /* ================================
@@ -67,9 +80,9 @@ location-footer {
     display: none !important;
 }
 
-/* Input bar — invisible but structurally present */
+/* Input bar — transparent for bg image */
 input-container {
-    background: #111113 !important;
+    background: transparent !important;
     border: none !important;
     border-top: none !important;
     border-bottom: none !important;
