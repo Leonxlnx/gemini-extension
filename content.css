@@ -78,57 +78,13 @@ input-container {
 }
 
 /* ================================
-   SOFT UI — INPUT FIELD
-   NO border/radius/padding/margin changes at all
+   INPUT FIELD — completely default/normal
+   No custom styles at all
    ================================ */
-.input-area-container {
-    background: linear-gradient(160deg,
-            rgba(38, 38, 44, 0.85) 0%,
-            rgba(28, 28, 33, 0.8) 50%,
-            rgba(32, 32, 38, 0.82) 100%) !important;
-    backdrop-filter: blur(40px) saturate(1.4) !important;
-    -webkit-backdrop-filter: blur(40px) saturate(1.4) !important;
-    box-shadow:
-        inset 0 1.5px 6px rgba(255, 255, 255, 0.05),
-        inset 0 -2px 8px rgba(0, 0, 0, 0.12),
-        0 8px 28px rgba(0, 0, 0, 0.25),
-        0 2px 8px rgba(0, 0, 0, 0.15) !important;
-    transition: box-shadow 0.4s ease, background 0.4s ease !important;
-}
-
-.input-area-container:focus-within {
-    background: linear-gradient(160deg,
-            rgba(42, 42, 52, 0.9) 0%,
-            rgba(30, 30, 38, 0.85) 50%,
-            rgba(35, 35, 44, 0.87) 100%) !important;
-    box-shadow:
-        inset 0 1.5px 6px rgba(138, 180, 248, 0.07),
-        inset 0 -2px 8px rgba(0, 0, 0, 0.1),
-        0 8px 28px rgba(0, 0, 0, 0.25),
-        0 0 40px rgba(138, 180, 248, 0.025) !important;
-}
 
 /* ================================
-   TEXT & PLACEHOLDER — softer, premium
-   ================================ */
-.input-area-container .ql-editor,
-.input-area-container textarea,
-.input-area-container [contenteditable],
-.input-area-container .text-input,
-.input-area-container input {
-    color: rgba(232, 230, 240, 0.95) !important;
-}
-
-.input-area-container .ql-editor.ql-blank::before,
-.input-area-container textarea::placeholder,
-.input-area-container input::placeholder,
-.input-area-container [data-placeholder]::before {
-    color: rgba(180, 178, 195, 0.5) !important;
-}
-
-/* ================================
-   TOOLBAR BUTTONS — +, Tools, Mic, Model
-   Only hover/active effects, no size changes
+   TOOLBAR BUTTONS — +, Tools, Mic, Send
+   Use model-selector panel color on hover
    ================================ */
 .input-buttons-wrapper button:hover,
 .input-buttons-wrapper-v2 button:hover,
@@ -137,7 +93,7 @@ input-container {
 .action-wrapper button:hover,
 input-container .mat-mdc-icon-button:hover,
 input-container .mdc-icon-button:hover {
-    background: rgba(255, 255, 255, 0.07) !important;
+    background: rgba(28, 28, 34, 0.85) !important;
 }
 
 .input-buttons-wrapper button:active,
@@ -147,7 +103,7 @@ input-container .mdc-icon-button:hover {
 .action-wrapper button:active,
 input-container .mat-mdc-icon-button:active,
 input-container .mdc-icon-button:active {
-    background: rgba(0, 0, 0, 0.1) !important;
+    background: rgba(28, 28, 34, 1) !important;
 }
 
 /* ================================
@@ -155,12 +111,11 @@ input-container .mdc-icon-button:active {
    ================================ */
 input-container .mat-mdc-chip:hover,
 .input-chips-wrapper .mat-mdc-chip-set .mdc-evolution-chip:hover {
-    background: rgba(255, 255, 255, 0.07) !important;
+    background: rgba(28, 28, 34, 0.85) !important;
 }
 
 /* ================================
-   DROPDOWN MENUS — ONLY the actual menu panels
-   NOT the overlay backdrop (.cdk-overlay-pane)
+   DROPDOWN MENUS — model selector panel color
    ================================ */
 .mat-mdc-menu-panel {
     background: rgba(28, 28, 34, 0.95) !important;
