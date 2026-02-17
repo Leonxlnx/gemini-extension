@@ -2,7 +2,7 @@
     "manifest_version": 3,
     "name": "Gemini UI Redesign",
     "description": "Floating rounded sidebar for Google Gemini",
-    "version": "0.1.25",
+    "version": "0.1.26",
     "content_scripts": [
         {
             "matches": [
