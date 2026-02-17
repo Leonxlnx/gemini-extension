@@ -25,35 +25,29 @@
     if (document.body) applyBackground();
     else document.addEventListener('DOMContentLoaded', applyBackground);
 
-    // === SIDEBAR BACKGROUND ===
+    // === SIDEBAR BACKGROUND (with dark overlay) ===
     function applySidebarBg(sidenav) {
-        sidenav.style.setProperty('background-image', `url("${SIDEBAR_BG}")`, 'important');
+        sidenav.style.setProperty('background-image', `linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)), url("${SIDEBAR_BG}")`, 'important');
         sidenav.style.setProperty('background-size', 'cover', 'important');
         sidenav.style.setProperty('background-position', 'center center', 'important');
         sidenav.style.setProperty('background-repeat', 'no-repeat', 'important');
-    }
-
-    // === INPUT FIELD BACKGROUND ===
-    function applyInputBg() {
-        const input = document.querySelector('.input-area-container, rich-textarea, .ql-editor');
-        if (input) {
-            input.style.setProperty('background-image', `url("${INPUT_BG}")`, 'important');
-            input.style.setProperty('background-size', 'cover', 'important');
-            input.style.setProperty('background-position', 'center center', 'important');
-            input.style.setProperty('background-repeat', 'no-repeat', 'important');
-        }
+        sidenav.style.setProperty('background-color', 'transparent', 'important');
     }
 
     // === USER MESSAGE BUBBLES ===
     function applyMsgBg() {
-        document.querySelectorAll('user-query .query-text, user-query .query-content').forEach(el => {
+        document.querySelectorAll('.user-query-bubble-with-background').forEach(el => {
             if (el.dataset.bgApplied) return;
             el.style.setProperty('background-image', `url("${MSG_BG}")`, 'important');
             el.style.setProperty('background-size', 'cover', 'important');
             el.style.setProperty('background-position', 'center center', 'important');
             el.style.setProperty('background-repeat', 'no-repeat', 'important');
-            el.style.setProperty('border-radius', '18px', 'important');
+            el.style.setProperty('background-color', 'transparent', 'important');
             el.dataset.bgApplied = 'true';
+        });
+        // Make inner content transparent so bubble bg shows through
+        document.querySelectorAll('.user-query-bubble-with-background .query-content, .user-query-bubble-with-background .query-text').forEach(el => {
+            el.style.setProperty('background', 'transparent', 'important');
         });
     }
 
@@ -104,8 +98,7 @@
             locationFooter.style.setProperty('display', 'none', 'important');
         }
 
-        // Apply input & message backgrounds
-        applyInputBg();
+        // Apply message backgrounds
         applyMsgBg();
     }
 
