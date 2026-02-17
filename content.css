@@ -79,8 +79,7 @@ input-container {
 
 /* ================================
    SOFT UI — INPUT FIELD
-   border-radius is safe (doesn't change box size)
-   NO border-width/padding/margin changes
+   NO border/radius/padding/margin changes at all
    ================================ */
 .input-area-container {
     background: linear-gradient(160deg,
@@ -89,7 +88,6 @@ input-container {
             rgba(32, 32, 38, 0.82) 100%) !important;
     backdrop-filter: blur(40px) saturate(1.4) !important;
     -webkit-backdrop-filter: blur(40px) saturate(1.4) !important;
-    border-radius: 22px !important;
     box-shadow:
         inset 0 1.5px 6px rgba(255, 255, 255, 0.05),
         inset 0 -2px 8px rgba(0, 0, 0, 0.12),
@@ -130,19 +128,8 @@ input-container {
 
 /* ================================
    TOOLBAR BUTTONS — +, Tools, Mic, Model
-   Soft hover with rounded feel
+   Only hover/active effects, no size changes
    ================================ */
-.input-buttons-wrapper button,
-.input-buttons-wrapper-v2 button,
-.trailing-actions-wrapper button,
-.leading-actions-wrapper button,
-.action-wrapper button,
-input-container .mat-mdc-icon-button,
-input-container .mdc-icon-button {
-    border-radius: 12px !important;
-    transition: background 0.2s ease, box-shadow 0.2s ease !important;
-}
-
 .input-buttons-wrapper button:hover,
 .input-buttons-wrapper-v2 button:hover,
 .trailing-actions-wrapper button:hover,
@@ -151,9 +138,6 @@ input-container .mdc-icon-button {
 input-container .mat-mdc-icon-button:hover,
 input-container .mdc-icon-button:hover {
     background: rgba(255, 255, 255, 0.07) !important;
-    box-shadow:
-        inset 0 1px 4px rgba(255, 255, 255, 0.04),
-        0 2px 10px rgba(0, 0, 0, 0.15) !important;
 }
 
 .input-buttons-wrapper button:active,
@@ -164,79 +148,29 @@ input-container .mdc-icon-button:hover {
 input-container .mat-mdc-icon-button:active,
 input-container .mdc-icon-button:active {
     background: rgba(0, 0, 0, 0.1) !important;
-    box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.2) !important;
 }
 
 /* ================================
-   CHIPS — "Tools" chip with icon
+   CHIPS HOVER — Tools chip
    ================================ */
-input-container .mat-mdc-chip,
-input-container [class*="chip"],
-.input-chips-wrapper .mat-mdc-chip-set .mdc-evolution-chip {
-    border-radius: 14px !important;
-    transition: background 0.2s ease !important;
-}
-
 input-container .mat-mdc-chip:hover,
-input-container [class*="chip"]:hover,
-.input-chips-wrapper .mat-mdc-chip-set .mdc-evolution-chip:hover,
-input-container .model-selector:hover,
-input-container [class*="selector"]:hover {
+.input-chips-wrapper .mat-mdc-chip-set .mdc-evolution-chip:hover {
     background: rgba(255, 255, 255, 0.07) !important;
-    box-shadow:
-        inset 0 1px 4px rgba(255, 255, 255, 0.04),
-        0 2px 10px rgba(0, 0, 0, 0.15) !important;
 }
 
 /* ================================
-   ALL DROPDOWN / OVERLAY PANELS
-   Model selector, Tools panel, + menu, etc.
-   These are separate overlays — safe to style fully
+   DROPDOWN MENUS — ONLY the actual menu panels
+   NOT the overlay backdrop (.cdk-overlay-pane)
    ================================ */
-.cdk-overlay-pane,
-.cdk-overlay-pane>*,
-.mat-mdc-menu-panel,
-.mat-mdc-select-panel,
-.mdc-menu-surface,
-.mat-mdc-dialog-surface,
-.mat-mdc-autocomplete-panel,
-[class*="overlay-panel"],
-[class*="menu-panel"],
-[class*="cdk-overlay"]>div {
-    background: linear-gradient(160deg,
-            rgba(32, 32, 38, 0.94) 0%,
-            rgba(24, 24, 30, 0.96) 100%) !important;
-    backdrop-filter: blur(50px) saturate(1.5) !important;
-    -webkit-backdrop-filter: blur(50px) saturate(1.5) !important;
-    border-radius: 16px !important;
-    box-shadow:
-        0 16px 56px rgba(0, 0, 0, 0.45),
-        inset 0 1px 4px rgba(255, 255, 255, 0.04),
-        inset 0 -1px 6px rgba(0, 0, 0, 0.12) !important;
+.mat-mdc-menu-panel {
+    background: rgba(28, 28, 34, 0.95) !important;
+    backdrop-filter: blur(30px) saturate(1.3) !important;
+    -webkit-backdrop-filter: blur(30px) saturate(1.3) !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4) !important;
 }
 
-/* Menu items inside ANY dropdown */
-.mat-mdc-menu-item,
-.mdc-list-item,
-[class*="menu-item"],
-[class*="option"] {
-    border-radius: 10px !important;
-    transition: background 0.15s ease !important;
-    color: rgba(232, 230, 240, 0.9) !important;
-}
-
-.mat-mdc-menu-item:hover,
-.mdc-list-item:hover,
-[class*="menu-item"]:hover,
-[class*="option"]:hover {
+.mat-mdc-menu-item:hover {
     background: rgba(255, 255, 255, 0.06) !important;
-}
-
-.mat-mdc-menu-item:active,
-.mdc-list-item:active,
-[class*="menu-item"]:active {
-    background: rgba(255, 255, 255, 0.03) !important;
-    box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.15) !important;
 }
 
 /* Kill dark gradient overlays/strips */
