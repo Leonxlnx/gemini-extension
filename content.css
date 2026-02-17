@@ -83,7 +83,7 @@ input-container {
 
 /* ================================
    TOOLBAR BUTTONS — +, Tools, Mic, Send
-   Use model-selector panel color on hover
+   #1C1C21 on hover/active
    ================================ */
 .input-buttons-wrapper button:hover,
 .input-buttons-wrapper-v2 button:hover,
@@ -92,7 +92,7 @@ input-container {
 .action-wrapper button:hover,
 input-container .mat-mdc-icon-button:hover,
 input-container .mdc-icon-button:hover {
-    background: rgba(28, 28, 34, 0.85) !important;
+    background: #1C1C21 !important;
 }
 
 .input-buttons-wrapper button:active,
@@ -102,7 +102,7 @@ input-container .mdc-icon-button:hover {
 .action-wrapper button:active,
 input-container .mat-mdc-icon-button:active,
 input-container .mdc-icon-button:active {
-    background: rgba(28, 28, 34, 1) !important;
+    background: #1C1C21 !important;
 }
 
 /* ================================
@@ -110,27 +110,36 @@ input-container .mdc-icon-button:active {
    ================================ */
 input-container .mat-mdc-chip:hover,
 .input-chips-wrapper .mat-mdc-chip-set .mdc-evolution-chip:hover {
-    background: rgba(28, 28, 34, 0.85) !important;
+    background: #1C1C21 !important;
 }
 
 /* ================================
    ALL 3 DROPDOWNS — Model, Tools, Plus
-   Color: RED TEST — will change to #1C1C21 after confirm
+   Color: #1C1C21
    ================================ */
 
 /* Model selector dropdown */
 .mat-mdc-menu-panel {
-    background: red !important;
+    background: #1C1C21 !important;
+    backdrop-filter: blur(30px) saturate(1.3) !important;
+    -webkit-backdrop-filter: blur(30px) saturate(1.3) !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4) !important;
 }
 
 /* Plus (+) file upload dropdown */
 .upload-file-card-container {
-    background: red !important;
+    background: #1C1C21 !important;
+    backdrop-filter: blur(30px) saturate(1.3) !important;
+    -webkit-backdrop-filter: blur(30px) saturate(1.3) !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4) !important;
 }
 
 /* Tools dropdown */
 .toolbox-drawer-card {
-    background: red !important;
+    background: #1C1C21 !important;
+    backdrop-filter: blur(30px) saturate(1.3) !important;
+    -webkit-backdrop-filter: blur(30px) saturate(1.3) !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4) !important;
 }
 
 .mat-mdc-menu-item:hover,
