@@ -34,6 +34,25 @@
         sidenav.style.setProperty('background-color', 'transparent', 'important');
     }
 
+    // === INPUT FIELD BACKGROUND ===
+    function applyInputBg() {
+        const inputArea = document.querySelector('input-area-v2');
+        if (!inputArea || inputArea.dataset.bgApplied) return;
+        inputArea.style.setProperty('background-image', `linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url("${INPUT_BG}")`, 'important');
+        inputArea.style.setProperty('background-size', 'cover', 'important');
+        inputArea.style.setProperty('background-position', 'center center', 'important');
+        inputArea.style.setProperty('background-repeat', 'no-repeat', 'important');
+        inputArea.style.setProperty('background-color', 'transparent', 'important');
+        inputArea.style.setProperty('overflow', 'hidden', 'important');
+        inputArea.dataset.bgApplied = 'true';
+
+        // Make inner fieldset transparent
+        const fieldset = inputArea.querySelector('fieldset');
+        if (fieldset) {
+            fieldset.style.setProperty('background', 'transparent', 'important');
+            fieldset.style.setProperty('background-color', 'transparent', 'important');
+        }
+    }
     // === USER MESSAGE BUBBLES ===
     function applyMsgBg() {
         document.querySelectorAll('.user-query-bubble-with-background').forEach(el => {
@@ -98,7 +117,8 @@
             locationFooter.style.setProperty('display', 'none', 'important');
         }
 
-        // Apply message backgrounds
+        // Apply input & message backgrounds
+        applyInputBg();
         applyMsgBg();
     }
 
