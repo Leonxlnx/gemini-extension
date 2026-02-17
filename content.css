@@ -67,6 +67,13 @@ location-footer {
     display: none !important;
 }
 
+/* Input bar — invisible but structurally present */
+input-container {
+    background: #111113 !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
 /* ================================
    MENU BUTTON ALIGNMENT
    ================================ */
