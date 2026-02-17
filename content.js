@@ -38,7 +38,7 @@
     function applyInputBg() {
         const inputArea = document.querySelector('input-area-v2');
         if (!inputArea || inputArea.dataset.bgApplied) return;
-        inputArea.style.setProperty('background-image', `linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.1)), url("${INPUT_BG}")`, 'important');
+        inputArea.style.setProperty('background-image', `linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.25)), url("${MSG_BG}")`, 'important');
         inputArea.style.setProperty('background-size', 'cover', 'important');
         inputArea.style.setProperty('background-position', 'center center', 'important');
         inputArea.style.setProperty('background-repeat', 'no-repeat', 'important');
@@ -57,7 +57,7 @@
     function applyMsgBg() {
         document.querySelectorAll('.user-query-bubble-with-background').forEach(el => {
             if (el.dataset.bgApplied) return;
-            el.style.setProperty('background-image', `url("${MSG_BG}")`, 'important');
+            el.style.setProperty('background-image', `linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.25)), url("${MSG_BG}")`, 'important');
             el.style.setProperty('background-size', 'cover', 'important');
             el.style.setProperty('background-position', 'center center', 'important');
             el.style.setProperty('background-repeat', 'no-repeat', 'important');
