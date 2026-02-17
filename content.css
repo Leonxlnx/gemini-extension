@@ -112,8 +112,15 @@ input-container {
     background: transparent !important;
     border: none !important;
     box-shadow: none !important;
+}
+
+/* Force overflow:visible on ANY element that contains suggestion buttons.
+   Scoped to content area only — won't affect sidebar/body layout.
+   :has() catches all clipping parents dynamically regardless of Gemini's DOM structure. */
+bard-sidenav-content :has(button.card-zero-state),
+mat-sidenav-content :has(button.card-zero-state),
+.mat-drawer-content :has(button.card-zero-state) {
     overflow: visible !important;
-    overflow-x: clip !important;
 }
 
 .input-area-container {
