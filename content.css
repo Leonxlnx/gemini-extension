@@ -78,37 +78,39 @@ input-container {
 }
 
 /* ================================
-   PREMIUM INPUT — INTERIOR ONLY
-   No border/radius/padding changes = zero layout shift
-   Only: background, inset box-shadow, backdrop-filter
+   SOFT UI — INPUT FIELD (NEUMORPHIC)
+   No border/radius/padding/margin changes
+   Only: background, diffused inset shadows, backdrop-filter
    ================================ */
 .input-area-container {
-    background: rgba(22, 22, 26, 0.85) !important;
+    background:
+        linear-gradient(180deg,
+            rgba(40, 40, 46, 0.3) 0%,
+            rgba(22, 22, 26, 0.0) 40%) !important;
     backdrop-filter: blur(40px) saturate(1.3) !important;
     -webkit-backdrop-filter: blur(40px) saturate(1.3) !important;
     box-shadow:
-        inset 0 1px 0 rgba(255, 255, 255, 0.06),
-        inset 0 -1px 0 rgba(255, 255, 255, 0.02),
-        inset 1px 0 0 rgba(255, 255, 255, 0.03),
-        inset -1px 0 0 rgba(255, 255, 255, 0.03),
-        0 4px 24px rgba(0, 0, 0, 0.25) !important;
-    transition: box-shadow 0.35s ease, background 0.35s ease !important;
+        inset 0 2px 8px rgba(255, 255, 255, 0.04),
+        inset 0 -3px 10px rgba(0, 0, 0, 0.15),
+        0 6px 20px rgba(0, 0, 0, 0.2),
+        0 2px 6px rgba(0, 0, 0, 0.15) !important;
+    transition: box-shadow 0.4s ease, background 0.4s ease !important;
 }
 
 .input-area-container:focus-within {
-    background: rgba(26, 26, 32, 0.92) !important;
+    background:
+        linear-gradient(180deg,
+            rgba(45, 45, 55, 0.35) 0%,
+            rgba(24, 24, 30, 0.0) 40%) !important;
     box-shadow:
-        inset 0 1px 0 rgba(138, 180, 248, 0.1),
-        inset 0 -1px 0 rgba(138, 180, 248, 0.04),
-        inset 1px 0 0 rgba(138, 180, 248, 0.06),
-        inset -1px 0 0 rgba(138, 180, 248, 0.06),
-        0 4px 24px rgba(0, 0, 0, 0.25),
-        0 0 40px rgba(138, 180, 248, 0.025) !important;
+        inset 0 2px 8px rgba(138, 180, 248, 0.06),
+        inset 0 -3px 10px rgba(0, 0, 0, 0.12),
+        0 6px 20px rgba(0, 0, 0, 0.2),
+        0 0 50px rgba(138, 180, 248, 0.02) !important;
 }
 
 /* ================================
-   TOOLBAR BUTTONS — hover/active only
-   No size changes, just color effects
+   TOOLBAR BUTTONS — soft hover glow
    ================================ */
 .input-buttons-wrapper button:hover,
 .input-buttons-wrapper-v2 button:hover,
@@ -117,8 +119,10 @@ input-container {
 .action-wrapper button:hover,
 input-container .mat-mdc-icon-button:hover,
 input-container .mdc-icon-button:hover {
-    background: rgba(255, 255, 255, 0.07) !important;
-    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06) !important;
+    background: rgba(255, 255, 255, 0.05) !important;
+    box-shadow:
+        inset 0 1px 4px rgba(255, 255, 255, 0.04),
+        0 2px 8px rgba(0, 0, 0, 0.12) !important;
 }
 
 .input-buttons-wrapper button:active,
@@ -128,45 +132,44 @@ input-container .mdc-icon-button:hover {
 .action-wrapper button:active,
 input-container .mat-mdc-icon-button:active,
 input-container .mdc-icon-button:active {
-    background: rgba(255, 255, 255, 0.04) !important;
-    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3) !important;
+    background: rgba(0, 0, 0, 0.08) !important;
+    box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.2) !important;
 }
 
 /* ================================
-   CHIPS & SELECTOR — interior only
+   CHIPS & SELECTOR — soft neumorphic hover
    ================================ */
 input-container .mat-mdc-chip:hover,
 input-container [class*="chip"]:hover,
-.input-chips-wrapper .mat-mdc-chip-set .mdc-evolution-chip:hover {
-    background: rgba(255, 255, 255, 0.07) !important;
-    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06) !important;
-}
-
+.input-chips-wrapper .mat-mdc-chip-set .mdc-evolution-chip:hover,
 input-container .model-selector:hover,
-input-container [class*="selector"]:hover,
-input-container [class*="dropdown"]:hover {
-    background: rgba(255, 255, 255, 0.07) !important;
-    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06) !important;
+input-container [class*="selector"]:hover {
+    background: rgba(255, 255, 255, 0.05) !important;
+    box-shadow:
+        inset 0 1px 4px rgba(255, 255, 255, 0.04),
+        0 2px 8px rgba(0, 0, 0, 0.12) !important;
 }
 
 /* ================================
-   DROPDOWN MENUS — separate overlays, safe to style fully
+   DROPDOWN MENUS — glass overlay panels
+   (separate from layout, safe to style fully)
    ================================ */
 .cdk-overlay-pane .mat-mdc-menu-panel,
 .mat-mdc-select-panel,
 .mdc-menu-surface {
-    background: rgba(22, 22, 26, 0.9) !important;
-    backdrop-filter: blur(40px) saturate(1.4) !important;
-    -webkit-backdrop-filter: blur(40px) saturate(1.4) !important;
+    background: rgba(20, 20, 24, 0.92) !important;
+    backdrop-filter: blur(50px) saturate(1.5) !important;
+    -webkit-backdrop-filter: blur(50px) saturate(1.5) !important;
     box-shadow:
-        0 12px 48px rgba(0, 0, 0, 0.4),
-        inset 0 1px 0 rgba(255, 255, 255, 0.06),
-        inset 0 0 0 1px rgba(255, 255, 255, 0.04) !important;
+        0 16px 56px rgba(0, 0, 0, 0.45),
+        inset 0 1px 6px rgba(255, 255, 255, 0.04),
+        inset 0 -2px 8px rgba(0, 0, 0, 0.15) !important;
 }
 
 .mat-mdc-menu-item:hover,
 .mdc-list-item:hover {
-    background: rgba(255, 255, 255, 0.06) !important;
+    background: rgba(255, 255, 255, 0.05) !important;
+    box-shadow: inset 0 1px 3px rgba(255, 255, 255, 0.03) !important;
 }
 
 /* Kill dark gradient overlays/strips */
