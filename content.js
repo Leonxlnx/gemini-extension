@@ -25,13 +25,14 @@
     if (document.body) applyBackground();
     else document.addEventListener('DOMContentLoaded', applyBackground);
 
-    // === SIDEBAR BACKGROUND (with dark overlay) ===
+    // === SIDEBAR BACKGROUND (with dark overlay + inner glow) ===
     function applySidebarBg(sidenav) {
         sidenav.style.setProperty('background-image', `linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url("${MSG_BG}")`, 'important');
         sidenav.style.setProperty('background-size', 'cover', 'important');
         sidenav.style.setProperty('background-position', 'center center', 'important');
         sidenav.style.setProperty('background-repeat', 'no-repeat', 'important');
         sidenav.style.setProperty('background-color', 'transparent', 'important');
+        sidenav.style.setProperty('box-shadow', 'inset 0 0 0 1px rgba(255,255,255,0.08)', 'important');
     }
 
     // === INPUT FIELD BACKGROUND ===
@@ -44,7 +45,17 @@
         inputArea.style.setProperty('background-repeat', 'no-repeat', 'important');
         inputArea.style.setProperty('background-color', 'transparent', 'important');
         inputArea.style.setProperty('overflow', 'hidden', 'important');
+        inputArea.style.setProperty('box-shadow', 'inset 0 0 0 1px rgba(255,255,255,0.08)', 'important');
+        inputArea.style.setProperty('transition', 'box-shadow 0.3s ease', 'important');
         inputArea.dataset.bgApplied = 'true';
+
+        // Hover effect: brighten inner glow
+        inputArea.addEventListener('mouseenter', () => {
+            inputArea.style.setProperty('box-shadow', 'inset 0 0 0 1px rgba(255,255,255,0.18)', 'important');
+        });
+        inputArea.addEventListener('mouseleave', () => {
+            inputArea.style.setProperty('box-shadow', 'inset 0 0 0 1px rgba(255,255,255,0.08)', 'important');
+        });
 
         // Make inner fieldset transparent
         const fieldset = inputArea.querySelector('fieldset');
@@ -62,6 +73,7 @@
             el.style.setProperty('background-position', 'center center', 'important');
             el.style.setProperty('background-repeat', 'no-repeat', 'important');
             el.style.setProperty('background-color', 'transparent', 'important');
+            el.style.setProperty('box-shadow', 'inset 0 0 0 1px rgba(255,255,255,0.08)', 'important');
             el.dataset.bgApplied = 'true';
         });
         // Make inner content transparent so bubble bg shows through
