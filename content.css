@@ -80,7 +80,7 @@ location-footer {
     display: none !important;
 }
 
-/* Input bar — transparent for bg image */
+/* Input bar — transparent for bg image, lifted from bottom */
 input-container {
     background: transparent !important;
     border: none !important;
@@ -88,6 +88,14 @@ input-container {
     border-bottom: none !important;
     box-shadow: none !important;
     outline: none !important;
+    padding-bottom: 12px !important;
+}
+
+/* Lift the entire bottom section */
+.bottom-container,
+.input-area-container-v2,
+.bottom-section-container {
+    padding-bottom: 12px !important;
 }
 
 /* ================================
