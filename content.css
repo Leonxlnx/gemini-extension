@@ -77,6 +77,36 @@ input-container {
     outline: none !important;
 }
 
+/* ================================
+   GLASSMORPHISM — INPUT FIELD
+   Layout-safe: no border/radius/padding changes
+   ================================ */
+.input-area-container {
+    background: rgba(28, 28, 32, 0.65) !important;
+    backdrop-filter: blur(40px) saturate(1.4) !important;
+    -webkit-backdrop-filter: blur(40px) saturate(1.4) !important;
+    border-color: rgba(255, 255, 255, 0.08) !important;
+    border-width: 1px !important;
+    border-style: solid !important;
+    box-shadow:
+        0 4px 30px rgba(0, 0, 0, 0.3),
+        0 0 0 0.5px rgba(255, 255, 255, 0.06),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08),
+        inset 0 -0.5px 0 rgba(0, 0, 0, 0.15) !important;
+    transition: box-shadow 0.4s ease, background 0.4s ease !important;
+}
+
+.input-area-container:focus-within {
+    background: rgba(32, 32, 38, 0.75) !important;
+    border-color: rgba(138, 180, 248, 0.12) !important;
+    box-shadow:
+        0 4px 30px rgba(0, 0, 0, 0.3),
+        0 0 0 0.5px rgba(138, 180, 248, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1),
+        inset 0 -0.5px 0 rgba(0, 0, 0, 0.1),
+        0 0 30px rgba(138, 180, 248, 0.04) !important;
+}
+
 /* Kill dark gradient overlays/strips */
 .autosuggest-scrim,
 .blur-bg {
