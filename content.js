@@ -7,22 +7,56 @@
 (() => {
     'use strict';
 
-    // === BACKGROUND IMAGE ===
+    // === RESOLVE IMAGE URLs ===
+    const BG_URL = chrome.runtime.getURL('bg.png');
+    const SIDEBAR_BG = chrome.runtime.getURL('sidebar-bg.png');
+    const INPUT_BG = chrome.runtime.getURL('input-bg.png');
+    const MSG_BG = chrome.runtime.getURL('msg-bg.png');
+
+    // === BODY BACKGROUND ===
     function applyBackground() {
-        const bgUrl = chrome.runtime.getURL('bg.png');
-        document.body.style.setProperty('background-image', `url("${bgUrl}")`, 'important');
+        document.body.style.setProperty('background-image', `url("${BG_URL}")`, 'important');
         document.body.style.setProperty('background-size', 'cover', 'important');
         document.body.style.setProperty('background-position', 'center center', 'important');
         document.body.style.setProperty('background-repeat', 'no-repeat', 'important');
         document.body.style.setProperty('background-attachment', 'fixed', 'important');
     }
 
-    // Apply bg early
-    if (document.body) {
-        applyBackground();
-    } else {
-        document.addEventListener('DOMContentLoaded', applyBackground);
+    if (document.body) applyBackground();
+    else document.addEventListener('DOMContentLoaded', applyBackground);
+
+    // === SIDEBAR BACKGROUND ===
+    function applySidebarBg(sidenav) {
+        sidenav.style.setProperty('background-image', `url("${SIDEBAR_BG}")`, 'important');
+        sidenav.style.setProperty('background-size', 'cover', 'important');
+        sidenav.style.setProperty('background-position', 'center center', 'important');
+        sidenav.style.setProperty('background-repeat', 'no-repeat', 'important');
     }
+
+    // === INPUT FIELD BACKGROUND ===
+    function applyInputBg() {
+        const input = document.querySelector('.input-area-container, rich-textarea, .ql-editor');
+        if (input) {
+            input.style.setProperty('background-image', `url("${INPUT_BG}")`, 'important');
+            input.style.setProperty('background-size', 'cover', 'important');
+            input.style.setProperty('background-position', 'center center', 'important');
+            input.style.setProperty('background-repeat', 'no-repeat', 'important');
+        }
+    }
+
+    // === USER MESSAGE BUBBLES ===
+    function applyMsgBg() {
+        document.querySelectorAll('user-query .query-text, user-query .query-content').forEach(el => {
+            if (el.dataset.bgApplied) return;
+            el.style.setProperty('background-image', `url("${MSG_BG}")`, 'important');
+            el.style.setProperty('background-size', 'cover', 'important');
+            el.style.setProperty('background-position', 'center center', 'important');
+            el.style.setProperty('background-repeat', 'no-repeat', 'important');
+            el.style.setProperty('border-radius', '18px', 'important');
+            el.dataset.bgApplied = 'true';
+        });
+    }
+
     function applyFloatingSidebar() {
         const sidenav = document.querySelector('bard-sidenav');
         if (!sidenav) return;
@@ -33,18 +67,20 @@
         sidenav.style.setProperty('left', '0', 'important');
         sidenav.style.setProperty('top', '0', 'important');
         sidenav.style.setProperty('height', 'calc(100vh - 24px)', 'important');
-        sidenav.style.setProperty('background', '#1a1a1d', 'important');
         sidenav.style.setProperty('border', 'none', 'important');
         sidenav.style.setProperty('border-right', 'none', 'important');
         sidenav.style.setProperty('border-right-width', '0', 'important');
         sidenav.style.setProperty('box-shadow', '0 2px 16px rgba(0,0,0,0.3), 0 0 1px rgba(255,255,255,0.05)', 'important');
         sidenav.style.setProperty('overflow', 'hidden', 'important');
 
+        // Apply sidebar background image
+        applySidebarBg(sidenav);
+
         // Inner content
         const navContent = sidenav.querySelector('side-navigation-content');
         if (navContent) {
             navContent.style.setProperty('border-radius', '16px', 'important');
-            navContent.style.setProperty('background', '#1a1a1d', 'important');
+            navContent.style.setProperty('background', 'transparent', 'important');
             navContent.style.setProperty('border', 'none', 'important');
         }
 
@@ -67,6 +103,10 @@
         if (locationFooter) {
             locationFooter.style.setProperty('display', 'none', 'important');
         }
+
+        // Apply input & message backgrounds
+        applyInputBg();
+        applyMsgBg();
     }
 
     // Apply after Angular renders
@@ -74,22 +114,26 @@
     setTimeout(applyFloatingSidebar, 1500);
     setTimeout(applyFloatingSidebar, 3000);
 
-    // MutationObserver: re-apply sidebar styles when Angular overrides
+    // MutationObserver: re-apply styles when DOM changes
     function startObserver() {
-        const sidenav = document.querySelector('bard-sidenav');
-        if (!sidenav) {
+        const target = document.querySelector('bard-sidenav') || document.body;
+        if (!target || !document.body) {
             setTimeout(startObserver, 1000);
             return;
         }
 
         const observer = new MutationObserver(() => {
-            requestAnimationFrame(applyFloatingSidebar);
+            requestAnimationFrame(() => {
+                applyFloatingSidebar();
+                applyMsgBg();
+            });
         });
 
-        observer.observe(sidenav, {
+        observer.observe(document.body, {
+            childList: true,
+            subtree: true,
             attributes: true,
-            attributeFilter: ['style'],
-            subtree: false
+            attributeFilter: ['style']
         });
     }
 
