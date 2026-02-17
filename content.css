@@ -140,11 +140,92 @@ input-container .mat-mdc-chip:hover,
     backdrop-filter: blur(30px) saturate(1.3) !important;
     -webkit-backdrop-filter: blur(30px) saturate(1.3) !important;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4) !important;
+    padding: 6px 0 !important;
+    overflow: hidden !important;
 }
 
-.mat-mdc-menu-item:hover,
-.mdc-list-item:hover {
-    background: rgba(255, 255, 255, 0.06) !important;
+/* ================================
+   DROPDOWN ITEM HOVER — all 3 menus
+   Subtle fade, full-width, no corners
+   ================================ */
+
+/* Model selector menu items */
+.mat-mdc-menu-item {
+    border-radius: 0 !important;
+    transition: background 0.2s ease !important;
+}
+
+.mat-mdc-menu-item:hover {
+    background: rgba(255, 255, 255, 0.05) !important;
+}
+
+.mat-mdc-menu-item:active,
+.mat-mdc-menu-item:focus {
+    background: rgba(255, 255, 255, 0.08) !important;
+}
+
+/* Tools dropdown items */
+.toolbox-drawer-item-list-button,
+.toolbox-drawer-card .mdc-list-item {
+    border-radius: 0 !important;
+    transition: background 0.2s ease !important;
+    margin: 0 !important;
+    width: 100% !important;
+}
+
+.toolbox-drawer-item-list-button:hover,
+.toolbox-drawer-card .mdc-list-item:hover {
+    background: rgba(255, 255, 255, 0.05) !important;
+}
+
+.toolbox-drawer-item-list-button:active,
+.toolbox-drawer-card .mdc-list-item:active {
+    background: rgba(255, 255, 255, 0.08) !important;
+}
+
+/* Plus (+) upload menu items */
+.upload-file-card-container button,
+.upload-file-card-container .mdc-list-item {
+    border-radius: 0 !important;
+    transition: background 0.2s ease !important;
+    width: 100% !important;
+}
+
+.upload-file-card-container button:hover,
+.upload-file-card-container .mdc-list-item:hover {
+    background: rgba(255, 255, 255, 0.05) !important;
+}
+
+.upload-file-card-container button:active,
+.upload-file-card-container .mdc-list-item:active {
+    background: rgba(255, 255, 255, 0.08) !important;
+}
+
+/* Kill Material ripple/state-layer in menus */
+.mat-mdc-menu-item .mat-mdc-menu-ripple,
+.mat-mdc-menu-item .mdc-list-item__ripple,
+.toolbox-drawer-card .mdc-list-item__ripple,
+.toolbox-drawer-card .mat-mdc-list-item-unscoped-content .mat-ripple,
+.upload-file-card-container .mdc-list-item__ripple,
+.mat-mdc-menu-item .mat-mdc-menu-item-ripple {
+    display: none !important;
+}
+
+/* Kill the state layer overlay */
+.mat-mdc-menu-item::before,
+.mdc-list-item::before,
+.toolbox-drawer-item-list-button::before {
+    display: none !important;
+}
+
+/* Ensure inner list has no extra padding that blocks edge-to-edge */
+.toolbox-drawer-card .mat-mdc-action-list,
+.toolbox-drawer-card mat-action-list {
+    padding: 4px 0 !important;
+}
+
+.mat-mdc-menu-panel .mat-mdc-menu-content {
+    padding: 4px 0 !important;
 }
 
 /* ================================
