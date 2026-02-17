@@ -1,6 +1,6 @@
 /* =============================================================================
-   Gemini UI Redesign — Floating Sidebar v5
-   Rounded, floating, soft UI design
+   Gemini UI Redesign — Floating Sidebar Only
+   Right side completely untouched / default Gemini
    ============================================================================= */
 
 /* ================================
@@ -45,7 +45,7 @@ bard-sidenav-content {
     outline: none !important;
 }
 
-/* Content area */
+/* Content area background */
 mat-sidenav-content,
 bard-sidenav-content,
 .mat-drawer-content,
@@ -62,7 +62,6 @@ html {
 
 /* ================================
    HIDE LOCATION FOOTER
-   (exact custom element from Gemini DOM)
    ================================ */
 location-footer {
     display: none !important;
@@ -70,7 +69,6 @@ location-footer {
 
 /* ================================
    MENU BUTTON ALIGNMENT
-   Menu at y:20, Search at y:28 → nudge 8px down + right
    ================================ */
 side-nav-menu-button,
 side-nav-menu-button .main-menu-button {
@@ -80,7 +78,6 @@ side-nav-menu-button .main-menu-button {
 
 /* ================================
    GEMINI TEXT SPACING
-   More breathing room from sidebar edge
    ================================ */
 bard-logo,
 bard-logo .logo {
@@ -88,196 +85,8 @@ bard-logo .logo {
 }
 
 /* ================================
-   REMOVE BLACK OVERLAYS / STRIPS
+   SCROLLBAR INSIDE SIDEBAR
    ================================ */
-.autosuggest-scrim,
-.blur-bg {
-    background: transparent !important;
-    background-color: transparent !important;
-}
-
-input-container.input-gradient::before,
-input-container.input-gradient::after,
-.input-gradient::before,
-.input-gradient::after {
-    background: transparent !important;
-    background-image: none !important;
-}
-
-/* ================================
-   SOFT UI — INPUT FIELD
-   Ultra-premium neumorphic depth
-   ================================ */
-input-container {
-    background: #111113 !important;
-    border: none !important;
-    box-shadow: none !important;
-}
-
-.input-area-container {
-    background: linear-gradient(160deg, #1e1e21, #19191b, #1a1a1d) !important;
-    border-radius: 26px !important;
-    border: none !important;
-    box-shadow:
-        8px 8px 24px rgba(0, 0, 0, 0.6),
-        -4px -4px 14px rgba(255, 255, 255, 0.018),
-        inset 0 1px 0 rgba(255, 255, 255, 0.07),
-        inset 0 -1px 0 rgba(0, 0, 0, 0.25) !important;
-    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
-}
-
-.input-area-container:focus-within {
-    box-shadow:
-        10px 10px 28px rgba(0, 0, 0, 0.6),
-        -4px -4px 14px rgba(255, 255, 255, 0.02),
-        inset 0 1px 0 rgba(255, 255, 255, 0.09),
-        inset 0 -1px 0 rgba(0, 0, 0, 0.2),
-        0 0 40px rgba(138, 180, 248, 0.04),
-        0 0 80px rgba(138, 180, 248, 0.02) !important;
-}
-
-/* ================================
-   SOFT UI — TOGGLE BAR BUTTONS
-   The +, Tools, Fast v, Mic inside input
-   ================================ */
-
-/* All toggle-style buttons in the bottom toolbar */
-.input-buttons-wrapper button,
-.input-buttons-wrapper-v2 button,
-.trailing-actions-wrapper button,
-.leading-actions-wrapper button,
-.action-wrapper button,
-input-container .mat-mdc-icon-button,
-input-container .mdc-icon-button {
-    background: linear-gradient(145deg, #1f1f22, #1a1a1d) !important;
-    border: none !important;
-    border-radius: 14px !important;
-    box-shadow:
-        3px 3px 8px rgba(0, 0, 0, 0.5),
-        -2px -2px 6px rgba(255, 255, 255, 0.02),
-        inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
-    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
-}
-
-.input-buttons-wrapper button:hover,
-.input-buttons-wrapper-v2 button:hover,
-.trailing-actions-wrapper button:hover,
-.leading-actions-wrapper button:hover,
-.action-wrapper button:hover,
-input-container .mat-mdc-icon-button:hover,
-input-container .mdc-icon-button:hover {
-    background: linear-gradient(145deg, #232326, #1e1e21) !important;
-    box-shadow:
-        4px 4px 10px rgba(0, 0, 0, 0.5),
-        -2px -2px 8px rgba(255, 255, 255, 0.025),
-        inset 0 1px 0 rgba(255, 255, 255, 0.06),
-        0 0 12px rgba(138, 180, 248, 0.04) !important;
-}
-
-.input-buttons-wrapper button:active,
-.input-buttons-wrapper-v2 button:active,
-.trailing-actions-wrapper button:active,
-.leading-actions-wrapper button:active,
-.action-wrapper button:active,
-input-container .mat-mdc-icon-button:active,
-input-container .mdc-icon-button:active {
-    box-shadow:
-        inset 3px 3px 8px rgba(0, 0, 0, 0.5),
-        inset -2px -2px 6px rgba(255, 255, 255, 0.02) !important;
-    transform: scale(0.97) !important;
-}
-
-/* Chip-style toggles (like "Tools" button with icon+text) */
-input-container .mat-mdc-chip,
-input-container [class*="chip"],
-.input-chips-wrapper .mat-mdc-chip-set .mdc-evolution-chip {
-    background: linear-gradient(145deg, #1f1f22, #1a1a1d) !important;
-    border: none !important;
-    border-radius: 14px !important;
-    box-shadow:
-        3px 3px 8px rgba(0, 0, 0, 0.5),
-        -2px -2px 6px rgba(255, 255, 255, 0.02),
-        inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
-    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
-}
-
-input-container .mat-mdc-chip:hover,
-input-container [class*="chip"]:hover,
-.input-chips-wrapper .mat-mdc-chip-set .mdc-evolution-chip:hover {
-    background: linear-gradient(145deg, #232326, #1e1e21) !important;
-    box-shadow:
-        4px 4px 10px rgba(0, 0, 0, 0.5),
-        -2px -2px 8px rgba(255, 255, 255, 0.025),
-        0 0 12px rgba(138, 180, 248, 0.04) !important;
-}
-
-/* Dropdown toggle (e.g. "Fast v") */
-input-container .model-selector,
-input-container [class*="selector"],
-input-container [class*="dropdown"] {
-    background: linear-gradient(145deg, #1f1f22, #1a1a1d) !important;
-    border: none !important;
-    border-radius: 14px !important;
-    box-shadow:
-        3px 3px 8px rgba(0, 0, 0, 0.5),
-        -2px -2px 6px rgba(255, 255, 255, 0.02),
-        inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
-    transition: all 0.3s ease !important;
-    padding: 4px 12px !important;
-}
-
-input-container .model-selector:hover,
-input-container [class*="selector"]:hover,
-input-container [class*="dropdown"]:hover {
-    background: linear-gradient(145deg, #232326, #1e1e21) !important;
-    box-shadow:
-        4px 4px 10px rgba(0, 0, 0, 0.5),
-        -2px -2px 8px rgba(255, 255, 255, 0.025),
-        0 0 12px rgba(138, 180, 248, 0.04) !important;
-}
-
-hallucination-disclaimer {
-    display: none !important;
-}
-
-
-/* ================================
-   SOFT UI — SUGGESTION BUTTONS
-   Elevated pill buttons with hover lift
-   ================================ */
-button.card-zero-state {
-    background: #1a1a1d !important;
-    border: 1px solid rgba(255, 255, 255, 0.06) !important;
-    border-radius: 20px !important;
-    box-shadow:
-        3px 3px 8px rgba(0, 0, 0, 0.5),
-        -2px -2px 6px rgba(255, 255, 255, 0.03) !important;
-    transition: all 0.25s ease !important;
-    padding: 10px 20px !important;
-}
-
-button.card-zero-state:hover {
-    background: #1f1f22 !important;
-    border-color: rgba(255, 255, 255, 0.1) !important;
-    box-shadow:
-        4px 4px 12px rgba(0, 0, 0, 0.5),
-        -3px -3px 8px rgba(255, 255, 255, 0.04),
-        0 0 16px rgba(138, 180, 248, 0.06) !important;
-    transform: translateY(-1px) !important;
-}
-
-button.card-zero-state:active {
-    transform: translateY(0px) !important;
-    box-shadow:
-        inset 2px 2px 6px rgba(0, 0, 0, 0.5),
-        inset -2px -2px 4px rgba(255, 255, 255, 0.03) !important;
-}
-
-/* ================================
-   SOFT UI TOUCHES
-   ================================ */
-
-/* Scrollbar inside sidebar */
 bard-sidenav ::-webkit-scrollbar {
     width: 4px !important;
 }
