@@ -27,7 +27,7 @@
 
     // === SIDEBAR BACKGROUND (with dark overlay) ===
     function applySidebarBg(sidenav) {
-        sidenav.style.setProperty('background-image', `linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url("${MSG_BG}")`, 'important');
+        sidenav.style.setProperty('background-image', `linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url("${MSG_BG}")`, 'important');
         sidenav.style.setProperty('background-size', 'cover', 'important');
         sidenav.style.setProperty('background-position', 'center center', 'important');
         sidenav.style.setProperty('background-repeat', 'no-repeat', 'important');
@@ -38,7 +38,7 @@
     function applyInputBg() {
         const inputArea = document.querySelector('input-area-v2');
         if (!inputArea || inputArea.dataset.bgApplied) return;
-        inputArea.style.setProperty('background-image', `linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url("${MSG_BG}")`, 'important');
+        inputArea.style.setProperty('background-image', `linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url("${MSG_BG}")`, 'important');
         inputArea.style.setProperty('background-size', 'cover', 'important');
         inputArea.style.setProperty('background-position', 'center center', 'important');
         inputArea.style.setProperty('background-repeat', 'no-repeat', 'important');
@@ -57,7 +57,7 @@
     function applyMsgBg() {
         document.querySelectorAll('.user-query-bubble-with-background').forEach(el => {
             if (el.dataset.bgApplied) return;
-            el.style.setProperty('background-image', `linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url("${MSG_BG}")`, 'important');
+            el.style.setProperty('background-image', `linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url("${MSG_BG}")`, 'important');
             el.style.setProperty('background-size', 'cover', 'important');
             el.style.setProperty('background-position', 'center center', 'important');
             el.style.setProperty('background-repeat', 'no-repeat', 'important');
