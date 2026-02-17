@@ -147,6 +147,68 @@ input-container .mat-mdc-chip:hover,
     background: rgba(255, 255, 255, 0.06) !important;
 }
 
+/* ================================
+   SUGGESTION CHIPS — modern premium redesign
+   ================================ */
+
+/* Chip buttons */
+.card.card-zero-state {
+    background: rgba(28, 28, 33, 0.6) !important;
+    border: 1px solid rgba(255, 255, 255, 0.06) !important;
+    border-radius: 999px !important;
+    padding: 8px 18px !important;
+    font-size: 12px !important;
+    font-weight: 400 !important;
+    letter-spacing: 0.3px !important;
+    color: rgba(255, 255, 255, 0.7) !important;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    box-shadow: none !important;
+    min-height: unset !important;
+    height: auto !important;
+    line-height: 1.3 !important;
+}
+
+.card.card-zero-state:hover {
+    background: rgba(28, 28, 33, 0.85) !important;
+    border-color: rgba(255, 255, 255, 0.12) !important;
+    color: rgba(255, 255, 255, 0.95) !important;
+    box-shadow: 0 0 16px rgba(138, 180, 248, 0.08) !important;
+    transform: translateY(-1px) !important;
+}
+
+.card.card-zero-state:active {
+    background: #1C1C21 !important;
+    transform: translateY(0) !important;
+    box-shadow: none !important;
+}
+
+/* Smaller icons inside chips */
+.card.card-zero-state img,
+.card.card-zero-state mat-icon,
+.card.card-zero-state .mat-icon {
+    width: 14px !important;
+    height: 14px !important;
+    font-size: 14px !important;
+}
+
+/* Chip text span */
+.card.card-zero-state span,
+.card.card-zero-state .card-text {
+    font-size: 12px !important;
+    font-weight: 400 !important;
+}
+
+/* Row container — tighter gap */
+intent-card-bar {
+    gap: 8px !important;
+}
+
+intent-card-bar .card-container {
+    gap: 8px !important;
+}
+
 /* Kill dark gradient overlays/strips */
 .autosuggest-scrim,
 .blur-bg {
