@@ -77,6 +77,28 @@ input-container {
     outline: none !important;
 }
 
+/* Kill dark gradient overlays/strips */
+.autosuggest-scrim,
+.blur-bg {
+    background: transparent !important;
+    background-color: transparent !important;
+}
+
+input-container.input-gradient::before,
+input-container.input-gradient::after,
+.input-gradient::before,
+.input-gradient::after {
+    background: transparent !important;
+    background-image: none !important;
+}
+
+/* Kill any bottom section dark backgrounds */
+.bottom-section-container,
+.cards-container {
+    background: transparent !important;
+    background-color: transparent !important;
+}
+
 /* Hide disclaimer text below input */
 hallucination-disclaimer {
     display: none !important;
