@@ -114,16 +114,21 @@ input-container .mat-mdc-chip:hover,
 }
 
 /* ================================
-   DROPDOWN MENUS — model selector panel color
+   ALL DROPDOWN PANELS — +, Tools, Model selector
+   Same color for all three
    ================================ */
-.mat-mdc-menu-panel {
+.mat-mdc-menu-panel,
+.mat-mdc-select-panel,
+.mdc-menu-surface,
+mat-bottom-sheet-container {
     background: rgba(28, 28, 34, 0.95) !important;
     backdrop-filter: blur(30px) saturate(1.3) !important;
     -webkit-backdrop-filter: blur(30px) saturate(1.3) !important;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4) !important;
 }
 
-.mat-mdc-menu-item:hover {
+.mat-mdc-menu-item:hover,
+.mdc-list-item:hover {
     background: rgba(255, 255, 255, 0.06) !important;
 }
 
