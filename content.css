@@ -115,16 +115,22 @@ input-container .mat-mdc-chip:hover,
 
 /* ================================
    ALL 3 DROPDOWNS — Model, Tools, Plus
-   Color: #1C1C21
+   Color: RED TEST — will change to #1C1C21 after confirm
    ================================ */
-.mat-mdc-menu-panel,
-.mat-mdc-select-panel,
-.mdc-menu-surface,
-mat-bottom-sheet-container {
-    background: #1C1C21 !important;
-    backdrop-filter: blur(30px) saturate(1.3) !important;
-    -webkit-backdrop-filter: blur(30px) saturate(1.3) !important;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4) !important;
+
+/* Model selector dropdown */
+.mat-mdc-menu-panel {
+    background: red !important;
+}
+
+/* Plus (+) file upload dropdown */
+.upload-file-card-container {
+    background: red !important;
+}
+
+/* Tools dropdown */
+.toolbox-drawer-card {
+    background: red !important;
 }
 
 .mat-mdc-menu-item:hover,
