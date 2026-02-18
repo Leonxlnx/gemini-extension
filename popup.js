@@ -1,33 +1,37 @@
 /**
- * Gemini UI Redesign — Popup v0.2.1
- * Drag & drop image customization + storage + auto-reload
+ * Gemini UI Redesign — Popup v0.3.0
+ * Per-zone darkness sliders + drag & drop + storage + auto-reload
  */
 
 (() => {
     'use strict';
 
     const KEYS = ['bg_custom', 'sidebar_custom', 'input_custom', 'msg_custom'];
+    const DARKNESS_KEYS = ['darkness_bg', 'darkness_sidebar', 'darkness_input', 'darkness_msg'];
     const ZONE_IDS = ['zone-bg', 'zone-sidebar', 'zone-input', 'zone-msg'];
     const PREVIEW_IDS = ['preview-bg', 'preview-sidebar', 'preview-input', 'preview-msg'];
 
     const toggleInput = document.getElementById('toggle-backgrounds');
     const zonesContainer = document.getElementById('zones-container');
-    const sliderRow = document.getElementById('slider-row');
-    const darknessSlider = document.getElementById('darkness-slider');
-    const darknessValue = document.getElementById('darkness-value');
+
+    // All per-zone darkness sliders
+    const darknessSliders = document.querySelectorAll('.darkness-slider');
 
     // === LOAD STATE ===
     function loadState() {
-        chrome.storage.local.get([...KEYS, 'backgrounds_enabled', 'overlay_darkness'], (data) => {
+        chrome.storage.local.get([...KEYS, ...DARKNESS_KEYS, 'backgrounds_enabled'], (data) => {
             // Toggle
-            const enabled = data.backgrounds_enabled !== false; // default true
+            const enabled = data.backgrounds_enabled !== false;
             toggleInput.checked = enabled;
             updateDisabledState(enabled);
 
-            // Darkness slider
-            const darkness = data.overlay_darkness ?? 60;
-            darknessSlider.value = darkness;
-            darknessValue.textContent = darkness + '%';
+            // Per-zone darkness sliders
+            darknessSliders.forEach(slider => {
+                const key = slider.dataset.target;
+                const val = data[key] ?? 60;
+                slider.value = val;
+                slider.nextElementSibling.textContent = val + '%';
+            });
 
             // Previews
             KEYS.forEach((key, i) => {
@@ -41,10 +45,8 @@
     function updateDisabledState(enabled) {
         if (enabled) {
             zonesContainer.classList.remove('disabled');
-            sliderRow.classList.remove('disabled');
         } else {
             zonesContainer.classList.add('disabled');
-            sliderRow.classList.add('disabled');
         }
     }
 
@@ -83,7 +85,6 @@
                 ctx.drawImage(img, 0, 0, w, h);
                 const dataUrl = canvas.toDataURL('image/webp', 0.85);
 
-                // Save & refresh
                 chrome.storage.local.set({ [KEYS[index]]: dataUrl }, () => {
                     showPreview(ZONE_IDS[index], PREVIEW_IDS[index], dataUrl);
                     refreshGeminiTabs();
@@ -94,13 +95,11 @@
         reader.readAsDataURL(file);
     }
 
-    // === REFRESH GEMINI TABS (message first, reload as fallback) ===
+    // === REFRESH GEMINI TABS ===
     function refreshGeminiTabs() {
         chrome.tabs.query({ url: 'https://gemini.google.com/*' }, (tabs) => {
             tabs.forEach(tab => {
-                // Try messaging first (instant update)
                 chrome.tabs.sendMessage(tab.id, { type: 'REFRESH_BACKGROUNDS' }, (response) => {
-                    // If message fails (e.g. content script not ready), reload the tab
                     if (chrome.runtime.lastError) {
                         chrome.tabs.reload(tab.id);
                     }
@@ -109,13 +108,12 @@
         });
     }
 
-    // === SETUP ZONES ===
+    // === SETUP DROP ZONES ===
     ZONE_IDS.forEach((zoneId, index) => {
         const zone = document.getElementById(zoneId);
         const fileInput = zone.querySelector('.zone-input');
         const resetBtn = zone.querySelector('.zone-reset');
 
-        // Drag & drop
         zone.addEventListener('dragover', (e) => {
             e.preventDefault();
             zone.classList.add('drag-over');
@@ -132,14 +130,12 @@
             if (file) handleFile(file, index);
         });
 
-        // File input click
         fileInput.addEventListener('change', (e) => {
             const file = e.target.files[0];
             if (file) handleFile(file, index);
             fileInput.value = '';
         });
 
-        // Reset button
         resetBtn.addEventListener('click', (e) => {
             e.stopPropagation();
             e.preventDefault();
@@ -159,16 +155,20 @@
         });
     });
 
-    // === DARKNESS SLIDER ===
-    darknessSlider.addEventListener('input', () => {
-        const val = parseInt(darknessSlider.value);
-        darknessValue.textContent = val + '%';
-    });
+    // === PER-ZONE DARKNESS SLIDERS ===
+    darknessSliders.forEach(slider => {
+        const valueSpan = slider.nextElementSibling;
 
-    darknessSlider.addEventListener('change', () => {
-        const val = parseInt(darknessSlider.value);
-        chrome.storage.local.set({ overlay_darkness: val }, () => {
-            refreshGeminiTabs();
+        slider.addEventListener('input', () => {
+            valueSpan.textContent = parseInt(slider.value) + '%';
+        });
+
+        slider.addEventListener('change', () => {
+            const key = slider.dataset.target;
+            const val = parseInt(slider.value);
+            chrome.storage.local.set({ [key]: val }, () => {
+                refreshGeminiTabs();
+            });
         });
     });
 
