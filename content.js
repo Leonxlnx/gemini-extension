@@ -1,5 +1,5 @@
 /**
- * Gemini UI Redesign — Content Script v0.3.0
+ * Gemini UI Redesign — Content Script v0.2.8
  * - Floating rounded sidebar
  * - Custom background images (from storage or bundled defaults)
  * - Per-zone darkness overlays
@@ -12,8 +12,6 @@
 
     // === DEFAULT BUNDLED IMAGE URLs ===
     const DEFAULT_BG = chrome.runtime.getURL('bg.webp');
-    const DEFAULT_SIDEBAR = chrome.runtime.getURL('sidebar-bg.png');
-    const DEFAULT_INPUT = chrome.runtime.getURL('input-bg.png');
     const DEFAULT_MSG = chrome.runtime.getURL('msg-bg.webp');
 
     // === ACTIVE IMAGE URLs (will be updated from storage) ===
