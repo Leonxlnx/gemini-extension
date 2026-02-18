@@ -214,9 +214,10 @@
     }
 
     // === LISTEN FOR POPUP MESSAGES ===
-    chrome.runtime.onMessage.addListener((msg) => {
+    chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
         if (msg.type === 'REFRESH_BACKGROUNDS') {
             fullRefresh();
+            sendResponse({ ok: true });
         }
     });
 
