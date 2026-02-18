@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gemini UI Redesign</title>
+    <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+    <div class="popup-container">
+        <header class="popup-header">
+            <div class="logo-row">
+                <svg class="logo-icon" viewBox="0 0 24 24" width="20" height="20" fill="none">
+                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="url(#grad)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <defs><linearGradient id="grad" x1="0" y1="0" x2="24" y2="24"><stop stop-color="#8b5cf6"/><stop offset="1" stop-color="#6366f1"/></linearGradient></defs>
+                </svg>
+                <h1>Gemini UI</h1>
+                <span class="version-badge">v0.2.0</span>
+            </div>
+            <p class="subtitle">Customize your Gemini experience</p>
+        </header>
+
+        <!-- Master Toggle -->
+        <div class="toggle-row">
+            <span class="toggle-label">Custom Backgrounds</span>
+            <label class="toggle-switch">
+                <input type="checkbox" id="toggle-backgrounds" checked>
+                <span class="toggle-slider"></span>
+            </label>
+        </div>
+
+        <!-- Drop Zones -->
+        <div class="zones-container" id="zones-container">
+            <div class="drop-zone" data-key="bg_custom" id="zone-bg">
+                <div class="zone-preview" id="preview-bg"></div>
+                <div class="zone-overlay">
+                    <svg class="upload-icon" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/>
+                    </svg>
+                    <span class="zone-label">Background</span>
+                </div>
+                <button class="zone-reset" title="Reset to default">✕</button>
+                <input type="file" accept="image/*" class="zone-input">
+            </div>
+
+            <div class="drop-zone" data-key="sidebar_custom" id="zone-sidebar">
+                <div class="zone-preview" id="preview-sidebar"></div>
+                <div class="zone-overlay">
+                    <svg class="upload-icon" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/>
+                    </svg>
+                    <span class="zone-label">Sidebar</span>
+                </div>
+                <button class="zone-reset" title="Reset to default">✕</button>
+                <input type="file" accept="image/*" class="zone-input">
+            </div>
+
+            <div class="drop-zone" data-key="input_custom" id="zone-input">
+                <div class="zone-preview" id="preview-input"></div>
+                <div class="zone-overlay">
+                    <svg class="upload-icon" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/>
+                    </svg>
+                    <span class="zone-label">Input Field</span>
+                </div>
+                <button class="zone-reset" title="Reset to default">✕</button>
+                <input type="file" accept="image/*" class="zone-input">
+            </div>
+
+            <div class="drop-zone" data-key="msg_custom" id="zone-msg">
+                <div class="zone-preview" id="preview-msg"></div>
+                <div class="zone-overlay">
+                    <svg class="upload-icon" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/>
+                    </svg>
+                    <span class="zone-label">Messages</span>
+                </div>
+                <button class="zone-reset" title="Reset to default">✕</button>
+                <input type="file" accept="image/*" class="zone-input">
+            </div>
+        </div>
+
+        <!-- Darkness Slider -->
+        <div class="slider-row" id="slider-row">
+            <label class="slider-label">Overlay Darkness</label>
+            <div class="slider-wrapper">
+                <input type="range" id="darkness-slider" min="0" max="80" value="60" step="5">
+                <span class="slider-value" id="darkness-value">60%</span>
+            </div>
+        </div>
+
+        <footer class="popup-footer">
+            <span>Drop images or click to upload</span>
+        </footer>
+    </div>
+    <script src="popup.js"></script>
+</body>
+</html>
