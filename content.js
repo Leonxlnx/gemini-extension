@@ -11,10 +11,10 @@
     'use strict';
 
     // === DEFAULT BUNDLED IMAGE URLs ===
-    const DEFAULT_BG = chrome.runtime.getURL('bg.png');
+    const DEFAULT_BG = chrome.runtime.getURL('bg.webp');
     const DEFAULT_SIDEBAR = chrome.runtime.getURL('sidebar-bg.png');
     const DEFAULT_INPUT = chrome.runtime.getURL('input-bg.png');
-    const DEFAULT_MSG = chrome.runtime.getURL('msg-bg.png');
+    const DEFAULT_MSG = chrome.runtime.getURL('msg-bg.webp');
 
     // === ACTIVE IMAGE URLs (will be updated from storage) ===
     let BG_URL = DEFAULT_BG;
