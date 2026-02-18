@@ -14,7 +14,7 @@
             <div class="logo-row">
                 <img class="logo-icon" src="icon.svg" alt="Gemini" width="22" height="22">
                 <h1>Gemini UI</h1>
-                <span class="version-badge">v0.2.0</span>
+                <span class="version-badge">v0.2.6</span>
             </div>
             <p class="subtitle">Customize your Gemini experience</p>
         </header>
@@ -36,7 +36,7 @@
                 <div class="drop-zone" data-key="bg_custom" id="zone-bg">
                     <div class="zone-preview" id="preview-bg"></div>
                     <div class="zone-overlay">
-                        <svg class="upload-icon" viewBox="0 0 24 24" width="20" height="20" fill="none"
+                        <svg class="upload-icon" viewBox="0 0 24 24" width="18" height="18" fill="none"
                             stroke="currentColor" stroke-width="1.5">
                             <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12" />
                         </svg>
@@ -46,11 +46,8 @@
                     <input type="file" accept="image/*" class="zone-input">
                 </div>
                 <div class="zone-slider">
-                    <svg class="zone-slider-icon" viewBox="0 0 16 16" fill="none">
-                        <circle cx="8" cy="8" r="6" stroke="#71717a" stroke-width="1.5" />
-                        <path d="M8 2a6 6 0 000 12z" fill="#71717a" />
-                    </svg>
-                    <input type="range" class="darkness-slider" data-target="darkness_bg" min="0" max="80" value="60"
+                    <span class="zone-slider-label">DK</span>
+                    <input type="range" class="darkness-slider" data-target="darkness_bg" min="0" max="100" value="60"
                         step="5">
                     <span class="zone-slider-value">60%</span>
                 </div>
@@ -61,7 +58,7 @@
                 <div class="drop-zone" data-key="sidebar_custom" id="zone-sidebar">
                     <div class="zone-preview" id="preview-sidebar"></div>
                     <div class="zone-overlay">
-                        <svg class="upload-icon" viewBox="0 0 24 24" width="20" height="20" fill="none"
+                        <svg class="upload-icon" viewBox="0 0 24 24" width="18" height="18" fill="none"
                             stroke="currentColor" stroke-width="1.5">
                             <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12" />
                         </svg>
@@ -71,11 +68,8 @@
                     <input type="file" accept="image/*" class="zone-input">
                 </div>
                 <div class="zone-slider">
-                    <svg class="zone-slider-icon" viewBox="0 0 16 16" fill="none">
-                        <circle cx="8" cy="8" r="6" stroke="#71717a" stroke-width="1.5" />
-                        <path d="M8 2a6 6 0 000 12z" fill="#71717a" />
-                    </svg>
-                    <input type="range" class="darkness-slider" data-target="darkness_sidebar" min="0" max="80"
+                    <span class="zone-slider-label">DK</span>
+                    <input type="range" class="darkness-slider" data-target="darkness_sidebar" min="0" max="100"
                         value="60" step="5">
                     <span class="zone-slider-value">60%</span>
                 </div>
@@ -86,7 +80,7 @@
                 <div class="drop-zone" data-key="input_custom" id="zone-input">
                     <div class="zone-preview" id="preview-input"></div>
                     <div class="zone-overlay">
-                        <svg class="upload-icon" viewBox="0 0 24 24" width="20" height="20" fill="none"
+                        <svg class="upload-icon" viewBox="0 0 24 24" width="18" height="18" fill="none"
                             stroke="currentColor" stroke-width="1.5">
                             <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12" />
                         </svg>
@@ -96,12 +90,9 @@
                     <input type="file" accept="image/*" class="zone-input">
                 </div>
                 <div class="zone-slider">
-                    <svg class="zone-slider-icon" viewBox="0 0 16 16" fill="none">
-                        <circle cx="8" cy="8" r="6" stroke="#71717a" stroke-width="1.5" />
-                        <path d="M8 2a6 6 0 000 12z" fill="#71717a" />
-                    </svg>
-                    <input type="range" class="darkness-slider" data-target="darkness_input" min="0" max="80" value="60"
-                        step="5">
+                    <span class="zone-slider-label">DK</span>
+                    <input type="range" class="darkness-slider" data-target="darkness_input" min="0" max="100"
+                        value="60" step="5">
                     <span class="zone-slider-value">60%</span>
                 </div>
             </div>
@@ -111,7 +102,7 @@
                 <div class="drop-zone" data-key="msg_custom" id="zone-msg">
                     <div class="zone-preview" id="preview-msg"></div>
                     <div class="zone-overlay">
-                        <svg class="upload-icon" viewBox="0 0 24 24" width="20" height="20" fill="none"
+                        <svg class="upload-icon" viewBox="0 0 24 24" width="18" height="18" fill="none"
                             stroke="currentColor" stroke-width="1.5">
                             <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12" />
                         </svg>
@@ -121,11 +112,8 @@
                     <input type="file" accept="image/*" class="zone-input">
                 </div>
                 <div class="zone-slider">
-                    <svg class="zone-slider-icon" viewBox="0 0 16 16" fill="none">
-                        <circle cx="8" cy="8" r="6" stroke="#71717a" stroke-width="1.5" />
-                        <path d="M8 2a6 6 0 000 12z" fill="#71717a" />
-                    </svg>
-                    <input type="range" class="darkness-slider" data-target="darkness_msg" min="0" max="80" value="60"
+                    <span class="zone-slider-label">DK</span>
+                    <input type="range" class="darkness-slider" data-target="darkness_msg" min="0" max="100" value="60"
                         step="5">
                     <span class="zone-slider-value">60%</span>
                 </div>

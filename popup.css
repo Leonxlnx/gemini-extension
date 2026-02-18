@@ -1,5 +1,5 @@
 /* ============================================
-   Gemini UI Redesign — Popup v0.2.0
+   Gemini UI Redesign — Popup v0.2.6
    Premium dark theme — Gemini Blue accent
    ============================================ */
 
@@ -12,13 +12,13 @@
 }
 
 body {
-    width: 320px;
-    min-height: 100px;
+    width: 380px;
     background: #0a0a0a;
     color: #e4e4e7;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     font-size: 13px;
     -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
 }
 
 /* === CONTAINER === */
@@ -38,7 +38,7 @@ body {
     display: flex;
     align-items: center;
     gap: 8px;
-    margin-bottom: 4px;
+    margin-bottom: 3px;
 }
 
 .logo-icon {
@@ -66,8 +66,8 @@ body {
 
 .subtitle {
     font-size: 12px;
-    color: #71717a;
-    margin-top: 2px;
+    color: #52525b;
+    margin-top: 1px;
 }
 
 /* === TOGGLE ROW === */
@@ -75,10 +75,10 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: #141414;
+    background: #111113;
     border-radius: 12px;
     padding: 10px 14px;
-    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.04);
 }
 
 .toggle-label {
@@ -89,8 +89,8 @@ body {
 
 .toggle-switch {
     position: relative;
-    width: 40px;
-    height: 22px;
+    width: 38px;
+    height: 20px;
     cursor: pointer;
 }
 
@@ -106,14 +106,13 @@ body {
     background: #27272a;
     border-radius: 99px;
     transition: background 0.3s ease;
-    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
 }
 
 .toggle-slider::after {
     content: '';
     position: absolute;
-    width: 16px;
-    height: 16px;
+    width: 14px;
+    height: 14px;
     left: 3px;
     top: 3px;
     background: #52525b;
@@ -134,7 +133,7 @@ body {
 .zones-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 8px;
+    gap: 10px;
     transition: opacity 0.3s ease, filter 0.3s ease;
 }
 
@@ -148,16 +147,16 @@ body {
 .zone-group {
     display: flex;
     flex-direction: column;
-    gap: 0;
+    min-width: 0;
 }
 
 /* === DROP ZONE === */
 .drop-zone {
     position: relative;
-    aspect-ratio: 4 / 3;
+    aspect-ratio: 5 / 3;
     border-radius: 10px;
     background: #111113;
-    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.04);
     overflow: hidden;
     cursor: pointer;
     transition: box-shadow 0.25s ease, transform 0.2s ease, background 0.25s ease;
@@ -167,15 +166,15 @@ body {
 }
 
 .drop-zone:hover {
-    box-shadow: inset 0 0 0 1px rgba(59, 130, 246, 0.25), 0 0 12px rgba(59, 130, 246, 0.06);
-    background: #151518;
-    transform: scale(1.02);
+    box-shadow: inset 0 0 0 1px rgba(59, 130, 246, 0.2), 0 0 12px rgba(59, 130, 246, 0.04);
+    background: #141418;
+    transform: scale(1.01);
 }
 
 .drop-zone.drag-over {
-    box-shadow: inset 0 0 0 2px rgba(59, 130, 246, 0.45), 0 0 24px rgba(59, 130, 246, 0.1);
+    box-shadow: inset 0 0 0 2px rgba(59, 130, 246, 0.4), 0 0 20px rgba(59, 130, 246, 0.08);
     background: #161620;
-    transform: scale(1.03);
+    transform: scale(1.02);
 }
 
 .drop-zone.has-image .zone-overlay {
@@ -184,7 +183,7 @@ body {
 
 .drop-zone.has-image:hover .zone-overlay {
     opacity: 1;
-    background: rgba(0, 0, 0, 0.6);
+    background: rgba(0, 0, 0, 0.55);
 }
 
 /* === ZONE PREVIEW === */
@@ -204,7 +203,7 @@ body {
     flex-direction: column;
     align-items: center;
     gap: 5px;
-    color: #52525b;
+    color: #3f3f46;
     transition: opacity 0.25s ease, background 0.25s ease, color 0.25s ease;
     border-radius: 10px;
     width: 100%;
@@ -217,12 +216,12 @@ body {
 }
 
 .upload-icon {
-    opacity: 0.5;
+    opacity: 0.4;
     transition: opacity 0.25s ease;
 }
 
 .drop-zone:hover .upload-icon {
-    opacity: 0.9;
+    opacity: 0.8;
 }
 
 .zone-label {
@@ -274,9 +273,9 @@ body {
 .zone-slider {
     display: flex;
     align-items: center;
-    gap: 5px;
-    padding: 3px 2px 1px 2px;
-    opacity: 0.6;
+    gap: 4px;
+    padding: 4px 1px 0 1px;
+    opacity: 0.5;
     transition: opacity 0.2s ease;
 }
 
@@ -284,19 +283,23 @@ body {
     opacity: 1;
 }
 
-.zone-slider-icon {
+.zone-slider-label {
+    font-size: 8px;
+    font-weight: 500;
+    color: #52525b;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
     flex-shrink: 0;
-    width: 12px;
-    height: 12px;
-    opacity: 0.4;
+    width: 14px;
 }
 
 input[type="range"] {
     flex: 1;
+    min-width: 0;
     -webkit-appearance: none;
     appearance: none;
     height: 3px;
-    background: #1e1e22;
+    background: #1a1a1e;
     border-radius: 99px;
     outline: none;
 }
@@ -308,29 +311,30 @@ input[type="range"]::-webkit-slider-thumb {
     border-radius: 50%;
     background: #3b82f6;
     cursor: pointer;
-    box-shadow: 0 0 6px rgba(59, 130, 246, 0.3);
+    box-shadow: 0 0 5px rgba(59, 130, 246, 0.25);
     transition: transform 0.15s ease;
 }
 
 input[type="range"]::-webkit-slider-thumb:hover {
-    transform: scale(1.2);
+    transform: scale(1.25);
 }
 
 .zone-slider-value {
     font-size: 9px;
     font-weight: 500;
-    color: #60a5fa;
-    min-width: 24px;
+    color: #3b82f6;
+    min-width: 28px;
     text-align: right;
+    flex-shrink: 0;
 }
 
 /* === FOOTER === */
 .popup-footer {
     text-align: center;
-    padding-top: 2px;
+    padding-top: 0;
 }
 
 .popup-footer span {
-    font-size: 11px;
+    font-size: 10px;
     color: #27272a;
 }
