@@ -1,6 +1,6 @@
 /* ============================================
-   Gemini UI Redesign — Popup v0.2.0
-   Premium dark OLED theme
+   Gemini UI Redesign — Popup v0.2.1
+   Premium dark theme — Gemini Blue accent
    ============================================ */
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
@@ -43,6 +43,8 @@ body {
 
 .logo-icon {
     flex-shrink: 0;
+    width: 24px;
+    height: 24px;
 }
 
 .popup-header h1 {
@@ -55,8 +57,8 @@ body {
 .version-badge {
     font-size: 10px;
     font-weight: 500;
-    color: #a78bfa;
-    background: rgba(139, 92, 246, 0.12);
+    color: #60a5fa;
+    background: rgba(59, 130, 246, 0.1);
     padding: 2px 7px;
     border-radius: 99px;
     letter-spacing: 0.3px;
@@ -114,18 +116,18 @@ body {
     height: 16px;
     left: 3px;
     top: 3px;
-    background: #71717a;
+    background: #52525b;
     border-radius: 50%;
     transition: transform 0.3s ease, background 0.3s ease;
 }
 
 .toggle-switch input:checked+.toggle-slider {
-    background: rgba(139, 92, 246, 0.3);
+    background: rgba(59, 130, 246, 0.2);
 }
 
 .toggle-switch input:checked+.toggle-slider::after {
     transform: translateX(18px);
-    background: #8b5cf6;
+    background: #3b82f6;
 }
 
 /* === DROP ZONES GRID === */
@@ -147,23 +149,25 @@ body {
     position: relative;
     aspect-ratio: 16 / 10;
     border-radius: 12px;
-    background: #141414;
-    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+    background: #111113;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.05);
     overflow: hidden;
     cursor: pointer;
-    transition: box-shadow 0.25s ease, transform 0.2s ease;
+    transition: box-shadow 0.25s ease, transform 0.2s ease, background 0.25s ease;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
 .drop-zone:hover {
-    box-shadow: inset 0 0 0 1px rgba(139, 92, 246, 0.3);
+    box-shadow: inset 0 0 0 1px rgba(59, 130, 246, 0.25), 0 0 12px rgba(59, 130, 246, 0.06);
+    background: #151518;
     transform: scale(1.02);
 }
 
 .drop-zone.drag-over {
-    box-shadow: inset 0 0 0 2px rgba(139, 92, 246, 0.6), 0 0 20px rgba(139, 92, 246, 0.15);
+    box-shadow: inset 0 0 0 2px rgba(59, 130, 246, 0.45), 0 0 24px rgba(59, 130, 246, 0.1);
+    background: #161620;
     transform: scale(1.03);
 }
 
@@ -173,7 +177,7 @@ body {
 
 .drop-zone.has-image:hover .zone-overlay {
     opacity: 1;
-    background: rgba(0, 0, 0, 0.65);
+    background: rgba(0, 0, 0, 0.6);
 }
 
 /* === ZONE PREVIEW === */
@@ -193,8 +197,8 @@ body {
     flex-direction: column;
     align-items: center;
     gap: 6px;
-    color: #71717a;
-    transition: opacity 0.25s ease, background 0.25s ease;
+    color: #52525b;
+    transition: opacity 0.25s ease, background 0.25s ease, color 0.25s ease;
     border-radius: 12px;
     width: 100%;
     height: 100%;
@@ -202,16 +206,16 @@ body {
 }
 
 .drop-zone:hover .zone-overlay {
-    color: #a78bfa;
+    color: #93c5fd;
 }
 
 .upload-icon {
-    opacity: 0.6;
+    opacity: 0.5;
     transition: opacity 0.25s ease;
 }
 
 .drop-zone:hover .upload-icon {
-    opacity: 1;
+    opacity: 0.9;
 }
 
 .zone-label {
@@ -242,7 +246,7 @@ body {
 }
 
 .zone-reset:hover {
-    background: rgba(239, 68, 68, 0.6);
+    background: rgba(239, 68, 68, 0.5);
     color: #fff;
 }
 
@@ -277,7 +281,7 @@ body {
 .slider-label {
     font-size: 12px;
     font-weight: 500;
-    color: #a1a1aa;
+    color: #71717a;
     display: block;
     margin-bottom: 8px;
 }
@@ -293,7 +297,7 @@ input[type="range"] {
     -webkit-appearance: none;
     appearance: none;
     height: 4px;
-    background: #27272a;
+    background: #1e1e22;
     border-radius: 99px;
     outline: none;
 }
@@ -303,9 +307,9 @@ input[type="range"]::-webkit-slider-thumb {
     width: 14px;
     height: 14px;
     border-radius: 50%;
-    background: #8b5cf6;
+    background: #3b82f6;
     cursor: pointer;
-    box-shadow: 0 0 6px rgba(139, 92, 246, 0.4);
+    box-shadow: 0 0 8px rgba(59, 130, 246, 0.35);
     transition: transform 0.15s ease;
 }
 
@@ -316,7 +320,7 @@ input[type="range"]::-webkit-slider-thumb:hover {
 .slider-value {
     font-size: 11px;
     font-weight: 500;
-    color: #a78bfa;
+    color: #60a5fa;
     min-width: 30px;
     text-align: right;
 }
@@ -324,23 +328,10 @@ input[type="range"]::-webkit-slider-thumb:hover {
 /* === FOOTER === */
 .popup-footer {
     text-align: center;
-    padding-top: 4px;
+    padding-top: 2px;
 }
 
 .popup-footer span {
     font-size: 11px;
-    color: #3f3f46;
-}
-
-/* === ANIMATIONS === */
-@keyframes pulse-glow {
-
-    0%,
-    100% {
-        box-shadow: inset 0 0 0 1px rgba(139, 92, 246, 0.3);
-    }
-
-    50% {
-        box-shadow: inset 0 0 0 1px rgba(139, 92, 246, 0.6), 0 0 12px rgba(139, 92, 246, 0.1);
-    }
+    color: #27272a;
 }

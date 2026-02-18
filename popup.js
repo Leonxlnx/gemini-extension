@@ -1,6 +1,6 @@
 /**
- * Gemini UI Redesign — Popup v0.2.0
- * Drag & drop image customization + storage
+ * Gemini UI Redesign — Popup v0.2.1
+ * Drag & drop image customization + storage + auto-reload
  */
 
 (() => {
@@ -66,7 +66,6 @@
     function handleFile(file, index) {
         if (!file || !file.type.startsWith('image/')) return;
 
-        // Resize large images to keep storage manageable
         const reader = new FileReader();
         reader.onload = (e) => {
             const img = new Image();
@@ -84,10 +83,10 @@
                 ctx.drawImage(img, 0, 0, w, h);
                 const dataUrl = canvas.toDataURL('image/webp', 0.85);
 
-                // Save
+                // Save & refresh
                 chrome.storage.local.set({ [KEYS[index]]: dataUrl }, () => {
                     showPreview(ZONE_IDS[index], PREVIEW_IDS[index], dataUrl);
-                    notifyContentScript();
+                    refreshGeminiTabs();
                 });
             };
             img.src = e.target.result;
@@ -95,11 +94,17 @@
         reader.readAsDataURL(file);
     }
 
-    // === NOTIFY CONTENT SCRIPT ===
-    function notifyContentScript() {
+    // === REFRESH GEMINI TABS (message first, reload as fallback) ===
+    function refreshGeminiTabs() {
         chrome.tabs.query({ url: 'https://gemini.google.com/*' }, (tabs) => {
             tabs.forEach(tab => {
-                chrome.tabs.sendMessage(tab.id, { type: 'REFRESH_BACKGROUNDS' });
+                // Try messaging first (instant update)
+                chrome.tabs.sendMessage(tab.id, { type: 'REFRESH_BACKGROUNDS' }, (response) => {
+                    // If message fails (e.g. content script not ready), reload the tab
+                    if (chrome.runtime.lastError) {
+                        chrome.tabs.reload(tab.id);
+                    }
+                });
             });
         });
     }
@@ -131,7 +136,7 @@
         fileInput.addEventListener('change', (e) => {
             const file = e.target.files[0];
             if (file) handleFile(file, index);
-            fileInput.value = ''; // reset for re-upload
+            fileInput.value = '';
         });
 
         // Reset button
@@ -140,7 +145,7 @@
             e.preventDefault();
             chrome.storage.local.remove(KEYS[index], () => {
                 clearPreview(zoneId, PREVIEW_IDS[index]);
-                notifyContentScript();
+                refreshGeminiTabs();
             });
         });
     });
@@ -150,7 +155,7 @@
         const enabled = toggleInput.checked;
         chrome.storage.local.set({ backgrounds_enabled: enabled }, () => {
             updateDisabledState(enabled);
-            notifyContentScript();
+            refreshGeminiTabs();
         });
     });
 
@@ -163,7 +168,7 @@
     darknessSlider.addEventListener('change', () => {
         const val = parseInt(darknessSlider.value);
         chrome.storage.local.set({ overlay_darkness: val }, () => {
-            notifyContentScript();
+            refreshGeminiTabs();
         });
     });
 

@@ -2,13 +2,18 @@
     "manifest_version": 3,
     "name": "Gemini UI Redesign",
     "description": "Customize your Gemini experience with custom backgrounds",
-    "version": "0.2.0",
+    "version": "0.2.1",
     "permissions": [
-        "storage"
+        "storage",
+        "tabs"
     ],
     "action": {
         "default_popup": "popup.html",
-        "default_title": "Gemini UI Redesign"
+        "default_title": "Gemini UI Redesign",
+        "default_icon": "icon.svg"
+    },
+    "icons": {
+        "128": "icon.svg"
     },
     "content_scripts": [
         {
@@ -36,7 +41,8 @@
                 "bg.png",
                 "sidebar-bg.png",
                 "input-bg.png",
-                "msg-bg.png"
+                "msg-bg.png",
+                "icon.svg"
             ],
             "matches": [
                 "https://gemini.google.com/*"
