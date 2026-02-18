@@ -44,11 +44,10 @@
     "web_accessible_resources": [
         {
             "resources": [
-                "bg.png",
-                "sidebar-bg.png",
-                "input-bg.png",
-                "msg-bg.png",
-                "icon.svg"
+                "*.png",
+                "*.webp",
+                "*.jpg",
+                "*.svg"
             ],
             "matches": [
                 "https://gemini.google.com/*"
