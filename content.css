@@ -374,3 +374,132 @@ bard-sidenav ::-webkit-scrollbar-thumb {
 bard-sidenav ::-webkit-scrollbar-thumb:hover {
     background: rgba(255, 255, 255, 0.15) !important;
 }
+
+/* ============================================================
+   CANVAS / ARTIFACT RIGHT PANEL
+   Targets the preview panel that opens for Canvas / Code output
+   ============================================================ */
+
+/* Outer panel wrapper */
+artifact-view,
+artifacts-view,
+.artifact-view-container,
+side-panel,
+side-panel-container,
+[data-test-id="side-panel"],
+.side-panel,
+.right-panel,
+.canvas-panel,
+cdk-overlay-container artifact-view {
+    background: #0f0f12 !important;
+    background-color: #0f0f12 !important;
+    border-left: 1px solid rgba(255, 255, 255, 0.06) !important;
+    box-shadow: -8px 0 24px rgba(0, 0, 0, 0.4) !important;
+}
+
+/* Panel header bar (with Code / Preview toggle + Share button) */
+artifact-view .header,
+artifact-view .panel-header,
+artifact-view .artifact-header,
+[data-test-id="side-panel"] .header,
+.artifact-view-container .header,
+.side-panel-header {
+    background: #0f0f12 !important;
+    background-color: #0f0f12 !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
+    box-shadow: none !important;
+}
+
+/* Title text in panel header */
+artifact-view .header .title,
+artifact-view .artifact-title,
+.side-panel-header .title {
+    color: #d4d4d8 !important;
+}
+
+/* Code / Preview toggle buttons */
+artifact-view .tab-bar,
+artifact-view .toggle-container,
+.artifact-tabs,
+.artifact-view-tabs {
+    background: #1a1a1d !important;
+    border-radius: 8px !important;
+    padding: 2px !important;
+    box-shadow: none !important;
+    border: 1px solid rgba(255, 255, 255, 0.06) !important;
+}
+
+artifact-view .tab-bar button,
+artifact-view .toggle-container button,
+.artifact-tabs button {
+    color: #71717a !important;
+    background: transparent !important;
+    border-radius: 6px !important;
+    font-size: 12px !important;
+    transition: background 0.2s ease, color 0.2s ease !important;
+}
+
+artifact-view .tab-bar button.active,
+artifact-view .tab-bar button[aria-selected="true"],
+.artifact-tabs button.active {
+    background: #27272a !important;
+    color: #e4e4e7 !important;
+}
+
+/* Preview iframe container */
+artifact-view iframe,
+artifact-view .preview-container,
+artifact-view .code-preview,
+.artifact-view-container iframe,
+.artifact-preview {
+    background: #13131a !important;
+    border: none !important;
+    border-radius: 0 !important;
+}
+
+/* Code view container */
+artifact-view .code-container,
+artifact-view pre,
+artifact-view code,
+.artifact-code-view {
+    background: #0f0f12 !important;
+    color: #e4e4e7 !important;
+}
+
+/* Action buttons in header (Share, close X) */
+artifact-view .header button,
+artifact-view .panel-header button,
+.side-panel-header button {
+    color: #71717a !important;
+    background: transparent !important;
+    border-radius: 8px !important;
+    transition: background 0.2s ease, color 0.2s ease !important;
+}
+
+artifact-view .header button:hover,
+.side-panel-header button:hover {
+    background: rgba(255, 255, 255, 0.06) !important;
+    color: #e4e4e7 !important;
+}
+
+/* Share button specifically */
+artifact-view .share-button,
+[data-test-id="share-button"] {
+    background: rgba(59, 130, 246, 0.15) !important;
+    color: #93c5fd !important;
+    border: 1px solid rgba(59, 130, 246, 0.2) !important;
+    border-radius: 8px !important;
+}
+
+artifact-view .share-button:hover,
+[data-test-id="share-button"]:hover {
+    background: rgba(59, 130, 246, 0.25) !important;
+}
+
+/* Splitter / resize handle between chat and panel */
+.panel-splitter,
+.resize-handle,
+[class*="splitter"] {
+    background: rgba(255, 255, 255, 0.04) !important;
+    width: 4px !important;
+}
