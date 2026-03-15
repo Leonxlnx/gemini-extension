@@ -1,5 +1,5 @@
 /**
- * Gemini UI Redesign — Content Script v0.2.11
+ * Gemini UI Redesign — Content Script v0.2.12
  * - Floating rounded sidebar
  * - Custom background images (from storage or bundled defaults)
  * - Per-zone darkness overlays

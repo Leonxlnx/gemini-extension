@@ -65,10 +65,14 @@ html {
     box-shadow: none !important;
 }
 
-/* Main chat area transparent */
+/* Main chat area transparent — let the body wallpaper show through */
 .conversation-container,
 .zero-state-container,
 .chat-window,
+.chat-container,
+.content-container,
+chat-window,
+chat-window-content,
 model-response,
 user-query,
 .response-container {
@@ -379,129 +383,122 @@ bard-sidenav ::-webkit-scrollbar-thumb:hover {
 }
 
 /* ============================================================
-   CANVAS / ARTIFACT RIGHT PANEL
-   Targets the preview panel that opens for Canvas / Code output.
-   SCOPED: only target artifact-specific elements to avoid
-   catching the left sidebar or main content containers.
+   CANVAS / IMMERSIVE PANEL (right side)
+   Real DOM: immersive-panel > code-immersive-panel > toolbar
+   Also supports artifact-view for non-code Canvas modes
    ============================================================ */
 
-/* Outer panel wrapper — only artifact/canvas-specific elements */
-artifact-view,
-artifacts-view,
-.artifact-view-container,
-.canvas-panel,
-cdk-overlay-container artifact-view,
-immersive-side-panel,
-.immersive-container {
+/* Outer Canvas panel wrapper */
+immersive-panel {
     background: #0f0f12 !important;
     background-color: #0f0f12 !important;
     border-left: 1px solid rgba(255, 255, 255, 0.06) !important;
     box-shadow: -8px 0 24px rgba(0, 0, 0, 0.4) !important;
 }
 
-/* Panel header bar (with Code / Preview toggle + Share button) */
-artifact-view .header,
-artifact-view .panel-header,
-artifact-view .artifact-header,
-.artifact-view-container .header,
-immersive-side-panel .header {
+/* Inner code panel */
+code-immersive-panel {
+    background: #0f0f12 !important;
+    background-color: #0f0f12 !important;
+}
+
+code-immersive-panel > .container {
+    background: #0f0f12 !important;
+}
+
+/* Toolbar header (Code / Preview toggle + Share + Close) */
+code-immersive-panel toolbar,
+code-immersive-panel toolbar .toolbar {
     background: #0f0f12 !important;
     background-color: #0f0f12 !important;
     border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
-    box-shadow: none !important;
 }
 
-/* Title text in panel header */
-artifact-view .header .title,
-artifact-view .artifact-title,
-immersive-side-panel .header .title {
+/* Title text */
+code-immersive-panel toolbar .title-text {
     color: #d4d4d8 !important;
 }
 
-/* Code / Preview toggle buttons */
-artifact-view .tab-bar,
-artifact-view .toggle-container,
-.artifact-tabs,
-.artifact-view-tabs {
+/* Code / Preview toggle (mat-button-toggle-group) */
+code-immersive-panel .tab-group {
     background: #1a1a1d !important;
-    border-radius: 8px !important;
-    padding: 2px !important;
-    box-shadow: none !important;
     border: 1px solid rgba(255, 255, 255, 0.06) !important;
+    border-radius: 8px !important;
 }
 
-artifact-view .tab-bar button,
-artifact-view .toggle-container button,
-.artifact-tabs button {
-    color: #71717a !important;
-    background: transparent !important;
-    border-radius: 6px !important;
-    font-size: 12px !important;
-    transition: background 0.2s ease, color 0.2s ease !important;
-}
-
-artifact-view .tab-bar button.active,
-artifact-view .tab-bar button[aria-selected="true"],
-.artifact-tabs button.active {
+code-immersive-panel .mat-button-toggle-checked .mat-button-toggle-button {
     background: #27272a !important;
     color: #e4e4e7 !important;
 }
 
-/* Preview iframe container */
-artifact-view iframe,
-artifact-view .preview-container,
-artifact-view .code-preview,
-.artifact-view-container iframe,
-.artifact-preview {
+code-immersive-panel .mat-button-toggle-button {
+    color: #71717a !important;
+    background: transparent !important;
+    transition: background 0.2s ease, color 0.2s ease !important;
+}
+
+/* Preview iframe */
+code-immersive-panel web-preview,
+code-immersive-panel web-preview .container,
+code-immersive-panel web-preview iframe {
     background: #13131a !important;
     border: none !important;
-    border-radius: 0 !important;
 }
 
-/* Code view container */
-artifact-view .code-container,
-artifact-view pre,
-artifact-view code,
-.artifact-code-view {
+/* Code editor (Monaco) */
+code-immersive-panel xap-code-editor,
+code-immersive-panel .xap-monaco-container {
     background: #0f0f12 !important;
-    color: #e4e4e7 !important;
 }
 
-/* Action buttons in header (Share, close X) */
-artifact-view .header button,
-artifact-view .panel-header button,
-immersive-side-panel .header button {
+/* Console panel */
+code-immersive-panel console,
+code-immersive-panel console .container {
+    background: #0f0f12 !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.06) !important;
+}
+
+/* Floating toolbar (magic wand, select) */
+code-immersive-panel floating-toolbar .container {
+    background: #1a1a1d !important;
+    border: 1px solid rgba(255, 255, 255, 0.06) !important;
+    border-radius: 12px !important;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4) !important;
+}
+
+/* Toolbar icon buttons (Close, Refresh, Share, etc.) */
+code-immersive-panel toolbar .icon-button {
     color: #71717a !important;
     background: transparent !important;
     border-radius: 8px !important;
     transition: background 0.2s ease, color 0.2s ease !important;
 }
 
-artifact-view .header button:hover,
-immersive-side-panel .header button:hover {
+code-immersive-panel toolbar .icon-button:hover {
     background: rgba(255, 255, 255, 0.06) !important;
     color: #e4e4e7 !important;
 }
 
-/* Share button specifically */
-artifact-view .share-button,
-[data-test-id="share-button"] {
+/* Share button */
+code-immersive-panel .share-button {
     background: rgba(59, 130, 246, 0.15) !important;
     color: #93c5fd !important;
     border: 1px solid rgba(59, 130, 246, 0.2) !important;
     border-radius: 8px !important;
 }
 
-artifact-view .share-button:hover,
-[data-test-id="share-button"]:hover {
+code-immersive-panel .share-button:hover {
     background: rgba(59, 130, 246, 0.25) !important;
 }
 
-/* Splitter / resize handle between chat and panel */
-.panel-splitter,
-.resize-handle,
-.gutter-vertical,
-.gutter-horizontal {
-    background: rgba(255, 255, 255, 0.04) !important;
-    width: 4px !important;
+/* Immersive entry chip (in chat, links to canvas) */
+immersive-entry-chip .container {
+    background: rgba(28, 28, 33, 0.6) !important;
+    border: 1px solid rgba(255, 255, 255, 0.06) !important;
+    border-radius: 12px !important;
+}
+
+immersive-entry-chip .container:hover {
+    background: rgba(28, 28, 33, 0.85) !important;
+    border-color: rgba(255, 255, 255, 0.12) !important;
 }
