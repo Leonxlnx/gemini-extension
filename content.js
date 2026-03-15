@@ -1,5 +1,5 @@
 /**
- * Gemini UI Redesign — Content Script v0.2.8
+ * Gemini UI Redesign — Content Script v0.2.10
  * - Floating rounded sidebar
  * - Custom background images (from storage or bundled defaults)
  * - Per-zone darkness overlays
@@ -163,47 +163,13 @@
     }
 
     // === FLOATING SIDEBAR ===
+    // Geometry (border-radius, margin, border) handled entirely by content.css.
+    // JS only applies dynamic background images from storage.
     function applyFloatingSidebar() {
         const sidenav = document.querySelector('bard-sidenav');
         if (!sidenav) return;
 
-        sidenav.style.setProperty('border-radius', '16px', 'important');
-        sidenav.style.setProperty('margin', '12px', 'important');
-        sidenav.style.setProperty('left', '0', 'important');
-        sidenav.style.setProperty('top', '0', 'important');
-        sidenav.style.setProperty('height', 'calc(100vh - 24px)', 'important');
-        sidenav.style.setProperty('border', 'none', 'important');
-        sidenav.style.setProperty('border-right', 'none', 'important');
-        sidenav.style.setProperty('border-right-width', '0', 'important');
-        sidenav.style.setProperty('box-shadow', '0 2px 16px rgba(0,0,0,0.3), 0 0 1px rgba(255,255,255,0.05)', 'important');
-        sidenav.style.setProperty('overflow', 'hidden', 'important');
-
         applySidebarBg(sidenav);
-
-        const navContent = sidenav.querySelector('side-navigation-content');
-        if (navContent) {
-            navContent.style.setProperty('border-radius', '16px', 'important');
-            navContent.style.setProperty('background', 'transparent', 'important');
-            navContent.style.setProperty('border', 'none', 'important');
-        }
-
-        const content = document.querySelector('bard-sidenav-content')
-            || document.querySelector('mat-sidenav-content')
-            || document.querySelector('.mat-drawer-content');
-        if (content) {
-            content.style.setProperty('border', 'none', 'important');
-            content.style.setProperty('box-shadow', 'none', 'important');
-        }
-
-        document.querySelectorAll('.mat-drawer-side').forEach(el => {
-            el.style.setProperty('border', 'none', 'important');
-        });
-
-        const locationFooter = sidenav.querySelector('location-footer');
-        if (locationFooter) {
-            locationFooter.style.setProperty('display', 'none', 'important');
-        }
-
         applyInputBg();
         applyMsgBg();
     }
@@ -229,33 +195,48 @@
         if (document.body) applyBackground();
         else document.addEventListener('DOMContentLoaded', applyBackground);
 
-        setTimeout(applyFloatingSidebar, 500);
-        setTimeout(applyFloatingSidebar, 1500);
-        setTimeout(applyFloatingSidebar, 3000);
+        // Wait for Gemini SPA to render the sidenav via observer instead of fragile timeouts
+        waitForElement('bard-sidenav', () => {
+            applyFloatingSidebar();
+            startObserver();
+        });
     });
 
-    // === MUTATION OBSERVER ===
+    // === WAIT FOR ELEMENT ===
+    function waitForElement(selector, callback) {
+        const el = document.querySelector(selector);
+        if (el) { callback(); return; }
+
+        const initObserver = new MutationObserver(() => {
+            if (document.querySelector(selector)) {
+                initObserver.disconnect();
+                callback();
+            }
+        });
+        initObserver.observe(document.body || document.documentElement, {
+            childList: true, subtree: true
+        });
+    }
+
+    // === MUTATION OBSERVER (throttled) ===
     function startObserver() {
-        const target = document.querySelector('bard-sidenav') || document.body;
-        if (!target || !document.body) {
-            setTimeout(startObserver, 1000);
-            return;
-        }
+        let pendingRefresh = false;
 
         const observer = new MutationObserver(() => {
-            requestAnimationFrame(() => {
-                applyFloatingSidebar();
-                applyMsgBg();
-            });
+            if (!pendingRefresh) {
+                pendingRefresh = true;
+                requestAnimationFrame(() => {
+                    applyFloatingSidebar();
+                    applyMsgBg();
+                    pendingRefresh = false;
+                });
+            }
         });
 
         observer.observe(document.body, {
             childList: true,
-            subtree: true,
-            attributes: true,
-            attributeFilter: ['style']
+            subtree: true
         });
     }
 
-    startObserver();
 })();

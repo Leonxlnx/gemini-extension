@@ -27,7 +27,8 @@ bard-sidenav[style] {
 /* Inner content inherits rounded corners */
 side-navigation-content {
     border-radius: 16px !important;
-    background: #1a1a1d !important;
+    background: transparent !important;
+    background-color: transparent !important;
     border: none !important;
     box-shadow: none !important;
 }

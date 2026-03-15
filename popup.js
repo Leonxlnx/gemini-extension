@@ -86,6 +86,10 @@
                 const dataUrl = canvas.toDataURL('image/webp', 0.85);
 
                 chrome.storage.local.set({ [KEYS[index]]: dataUrl }, () => {
+                    if (chrome.runtime.lastError) {
+                        alert('Image too large for storage. Try a smaller image.\n' + chrome.runtime.lastError.message);
+                        return;
+                    }
                     showPreview(ZONE_IDS[index], PREVIEW_IDS[index], dataUrl);
                     refreshGeminiTabs();
                 });
