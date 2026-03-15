@@ -46,15 +46,17 @@ bard-sidenav-content {
     outline: none !important;
 }
 
-/* Content area background — transparent for bg image */
+/* Content area background — transparent for bg image
+   IMPORTANT: we set a dark fallback color so Canvas split-view
+   doesn't expose a white/broken background behind the chat pane. */
 mat-sidenav-content,
 bard-sidenav-content,
 .mat-drawer-content,
 .mat-sidenav-content,
 .mat-drawer-container,
 mat-sidenav-container {
-    background: transparent !important;
     background-color: transparent !important;
+    background-image: none !important;
 }
 
 body,
@@ -378,20 +380,19 @@ bard-sidenav ::-webkit-scrollbar-thumb:hover {
 
 /* ============================================================
    CANVAS / ARTIFACT RIGHT PANEL
-   Targets the preview panel that opens for Canvas / Code output
+   Targets the preview panel that opens for Canvas / Code output.
+   SCOPED: only target artifact-specific elements to avoid
+   catching the left sidebar or main content containers.
    ============================================================ */
 
-/* Outer panel wrapper */
+/* Outer panel wrapper — only artifact/canvas-specific elements */
 artifact-view,
 artifacts-view,
 .artifact-view-container,
-side-panel,
-side-panel-container,
-[data-test-id="side-panel"],
-.side-panel,
-.right-panel,
 .canvas-panel,
-cdk-overlay-container artifact-view {
+cdk-overlay-container artifact-view,
+immersive-side-panel,
+.immersive-container {
     background: #0f0f12 !important;
     background-color: #0f0f12 !important;
     border-left: 1px solid rgba(255, 255, 255, 0.06) !important;
@@ -402,9 +403,8 @@ cdk-overlay-container artifact-view {
 artifact-view .header,
 artifact-view .panel-header,
 artifact-view .artifact-header,
-[data-test-id="side-panel"] .header,
 .artifact-view-container .header,
-.side-panel-header {
+immersive-side-panel .header {
     background: #0f0f12 !important;
     background-color: #0f0f12 !important;
     border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
@@ -414,7 +414,7 @@ artifact-view .artifact-header,
 /* Title text in panel header */
 artifact-view .header .title,
 artifact-view .artifact-title,
-.side-panel-header .title {
+immersive-side-panel .header .title {
     color: #d4d4d8 !important;
 }
 
@@ -470,7 +470,7 @@ artifact-view code,
 /* Action buttons in header (Share, close X) */
 artifact-view .header button,
 artifact-view .panel-header button,
-.side-panel-header button {
+immersive-side-panel .header button {
     color: #71717a !important;
     background: transparent !important;
     border-radius: 8px !important;
@@ -478,7 +478,7 @@ artifact-view .panel-header button,
 }
 
 artifact-view .header button:hover,
-.side-panel-header button:hover {
+immersive-side-panel .header button:hover {
     background: rgba(255, 255, 255, 0.06) !important;
     color: #e4e4e7 !important;
 }
@@ -500,7 +500,8 @@ artifact-view .share-button:hover,
 /* Splitter / resize handle between chat and panel */
 .panel-splitter,
 .resize-handle,
-[class*="splitter"] {
+.gutter-vertical,
+.gutter-horizontal {
     background: rgba(255, 255, 255, 0.04) !important;
     width: 4px !important;
 }
