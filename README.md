@@ -1,10 +1,6 @@
-<![CDATA[<div align="center">
-
-<img src="banner.png" alt="Gemini UI Redesign" width="100%" />
-
 # Gemini UI Redesign
 
-**A Chrome extension that transforms Google Gemini into a personalized, premium dark experience.**
+A Chrome extension that transforms Google Gemini into a personalized, premium dark experience.
 
 Custom backgrounds · Floating sidebar · Per-zone darkness control · Canvas-compatible
 
@@ -12,18 +8,11 @@ Custom backgrounds · Floating sidebar · Per-zone darkness control · Canvas-co
 [![Manifest V3](https://img.shields.io/badge/Manifest-V3-34A853?logo=google&logoColor=white)](https://developer.chrome.com/docs/extensions/mv3/intro/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-</div>
-
 ---
 
 ## Overview
 
 This extension overhauls the look and feel of [Google Gemini](https://gemini.google.com) without touching any functionality. Everything Gemini does still works as normal — you just get a much nicer interface on top.
-
-<div align="center">
-<img src="screenshot.png" alt="Extension in action" width="90%" />
-<p><em>Custom dark background with floating sidebar on Gemini's home screen</em></p>
-</div>
 
 ### Features
 
@@ -176,9 +165,4 @@ This project is open-source under the [MIT License](LICENSE).
 
 ---
 
-<div align="center">
-
 Made by [Leon](https://github.com/Leonxlnx)
-
-</div>
-]]>
