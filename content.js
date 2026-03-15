@@ -10,6 +10,9 @@
 (() => {
     'use strict';
 
+    // Guard: if extension was reloaded, old content scripts lose context
+    if (!chrome.runtime?.id) return;
+
     // === DEFAULT BUNDLED IMAGE URLs ===
     const DEFAULT_BG = chrome.runtime.getURL('bg.webp');
     const DEFAULT_MSG = chrome.runtime.getURL('msg-bg.webp');
