@@ -14,6 +14,8 @@ Custom backgrounds · Floating sidebar · Per-zone darkness control · Canvas-co
 
 This extension overhauls the look and feel of [Google Gemini](https://gemini.google.com) without touching any functionality. Everything Gemini does still works as normal — you just get a much nicer interface on top.
 
+![Preview](preview.png)
+
 ### Features
 
 - **Custom Background Images** — Upload your own wallpapers for the main background, sidebar, input field, and message bubbles
