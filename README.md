@@ -1,8 +1,8 @@
 <![CDATA[<div align="center">
 
-<img src="banner.png" alt="Gemini UI Redesign Banner" width="100%" />
+<img src="banner.png" alt="Gemini UI Redesign" width="100%" />
 
-# ✨ Gemini UI Redesign
+# Gemini UI Redesign
 
 **A Chrome extension that transforms Google Gemini into a personalized, premium dark experience.**
 
@@ -16,146 +16,161 @@ Custom backgrounds · Floating sidebar · Per-zone darkness control · Canvas-co
 
 ---
 
-## 🎯 What It Does
+## Overview
 
-This extension overhauls the look and feel of [Google Gemini](https://gemini.google.com) without touching any functionality. Everything Gemini does still works — you just get a much nicer interface on top.
+This extension overhauls the look and feel of [Google Gemini](https://gemini.google.com) without touching any functionality. Everything Gemini does still works as normal — you just get a much nicer interface on top.
 
-**Key features:**
+<div align="center">
+<img src="screenshot.png" alt="Extension in action" width="90%" />
+<p><em>Custom dark background with floating sidebar on Gemini's home screen</em></p>
+</div>
 
-- 🖼️ **Custom Background Images** — Upload your own wallpapers for the main background, sidebar, input field, and message bubbles
-- 🌗 **Per-Zone Darkness Sliders** — Fine-tune how dark the overlay is on each zone so your images look just right
-- 🧊 **Floating Sidebar** — The left sidebar becomes a rounded, elevated panel with a soft shadow
-- 🎨 **Premium Dark Theme** — Menus, dropdowns, chips, and buttons all get a cohesive dark treatment
-- 🖥️ **Canvas Compatible** — Works correctly when Gemini's right-side Canvas/Artifact panel is open
+### Features
 
----
-
-## 📸 Screenshots
-
-<!-- Add your own screenshots here! -->
-<!-- ![Main View](screenshots/main.png) -->
-<!-- ![Popup Settings](screenshots/popup.png) -->
+- **Custom Background Images** — Upload your own wallpapers for the main background, sidebar, input field, and message bubbles
+- **Per-Zone Darkness Sliders** — Fine-tune how dark the overlay is on each zone so your images look just right
+- **Floating Sidebar** — The left sidebar becomes a rounded, elevated panel with a soft shadow
+- **Premium Dark Theme** — Menus, dropdowns, chips, and buttons all get a cohesive dark treatment
+- **Canvas Compatible** — Works correctly when Gemini's right-side Canvas panel is open, targeting the actual `immersive-panel` and `code-immersive-panel` elements
 
 ---
 
-## 🚀 Installation
+## Installation
 
-Since this extension isn't on the Chrome Web Store (yet), you install it manually as an "unpacked extension". It takes about 30 seconds:
+Since this extension is not on the Chrome Web Store, you install it manually as an unpacked extension.
 
-### Step 1 — Download
+### 1. Download
 
 ```bash
 git clone https://github.com/Leonxlnx/gemini-extension.git
 ```
 
-Or click the green **Code** button on GitHub → **Download ZIP**, then unzip.
+Or click the green **Code** button on GitHub, then **Download ZIP** and unzip.
 
-### Step 2 — Load in Chrome
+### 2. Load in Chrome
 
-1. Open Chrome and go to `chrome://extensions`
-2. Turn on **Developer mode** (toggle in the top-right corner)
+1. Open `chrome://extensions` in your browser
+2. Enable **Developer mode** (toggle in the top-right corner)
 3. Click **Load unpacked**
-4. Select the `gemini-extension` folder you just downloaded
-5. Done! You'll see the extension icon in your toolbar
+4. Select the `gemini-extension` folder
 
-### Step 3 — Open Gemini
+### 3. Open Gemini
 
-Go to [gemini.google.com](https://gemini.google.com) — the new design applies automatically.
+Navigate to [gemini.google.com](https://gemini.google.com) — the redesign applies automatically.
 
 ---
 
-## 🎨 Customization
+## Customization
 
 Click the extension icon in your Chrome toolbar to open the settings popup.
 
-| Setting | What It Does |
+| Setting | Description |
 |---|---|
 | **Master Toggle** | Turn all custom backgrounds on or off |
 | **Background** | Upload an image for the main page background |
 | **Sidebar** | Upload an image for the left sidebar |
 | **Input Field** | Upload an image for the chat input area |
 | **Messages** | Upload an image for your sent message bubbles |
-| **Darkness Sliders** | Adjust the dark overlay on each zone (0% = full image, 80% = very dark) |
+| **Darkness Sliders** | Adjust the dark overlay per zone (0% = full image, 80% = very dark) |
 
 **Tips:**
 
-- Use high-resolution images (1920×1080 or larger) for the best look
-- Dark, moody wallpapers work great since the UI elements are also dark
-- The sidebar image will be cropped to fit the narrow panel — vertical images work best
+- Use high-resolution images (1920x1080 or larger) for the best results.
+- Dark, moody wallpapers work well since the UI is also dark-themed.
+- The sidebar image is cropped to fit the narrow panel — vertical images work best.
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 gemini-extension/
 ├── manifest.json      # Extension config (Manifest V3)
 ├── content.css        # All UI styling injected into Gemini
-├── content.js         # Dynamic background/image logic
+├── content.js         # Dynamic background and image logic
 ├── popup.html         # Settings popup layout
 ├── popup.css          # Settings popup styling
-├── popup.js           # Settings popup logic (uploads, sliders, storage)
+├── popup.js           # Settings popup logic
 ├── bg.webp            # Default background image
 ├── msg-bg.webp        # Default message/sidebar background
 ├── icon.svg           # Source icon
 ├── icon16.png         # Toolbar icon (16px)
 ├── icon48.png         # Extensions page icon (48px)
-└── icon128.png        # Chrome Web Store icon (128px)
+└── icon128.png        # Store icon (128px)
 ```
 
 ---
 
-## 🔧 How It Works
+## How It Works
 
-1. **`content.css`** is injected at `document_start` — it applies all the visual restyling (floating sidebar, dark menus, Canvas panel theming) before the page even renders
-2. **`content.js`** runs at `document_idle` — it loads your custom images from `chrome.storage.local`, applies them as CSS background images with darkness overlays, and uses a `MutationObserver` to re-apply styles when Gemini dynamically updates the DOM
-3. **`popup.js`** handles the settings UI — image uploads are resized/converted to WebP, stored in `chrome.storage.local`, and a message is sent to the content script to refresh in real-time
+1. **`content.css`** is injected at `document_start`. It applies all visual restyling — floating sidebar, dark menus, Canvas panel theming — before the page renders.
+
+2. **`content.js`** runs at `document_idle`. It loads custom images from `chrome.storage.local`, applies them as CSS background images with per-zone darkness overlays, and uses a `MutationObserver` to re-apply styles when Gemini dynamically updates the DOM.
+
+3. **`popup.js`** handles the settings UI. Uploaded images are resized and converted to WebP, stored in local storage, and a message is sent to the content script to refresh styling in real time.
+
+### Canvas Panel Integration
+
+When Canvas is open, Gemini renders the following DOM structure:
+
+```
+chat-window.immersives-mode
+├── div.chat-container          ← chat pane (left)
+└── immersive-panel             ← canvas pane (right)
+    └── code-immersive-panel
+        ├── toolbar             ← Code/Preview toggle, Share, Close
+        ├── web-preview         ← preview iframe
+        ├── xap-code-editor     ← Monaco code editor
+        ├── floating-toolbar    ← magic wand actions
+        └── console             ← console output
+```
+
+The extension targets these specific custom elements to avoid interfering with the sidebar or main content layout.
 
 ---
 
-## 🔄 Updating
+## Updating
 
-When you pull new changes:
+After pulling new changes:
 
 ```bash
 git pull origin main
 ```
 
-Then go to `chrome://extensions` and click the **🔄 refresh icon** on the Gemini UI Redesign card. Reload any open Gemini tabs.
+Then go to `chrome://extensions`, click the refresh icon on the extension card, and reload any open Gemini tabs.
 
 ---
 
-## 🤝 Contributing
+## Contributing
 
-Contributions are welcome! Here's how:
+Contributions are welcome.
 
-1. **Fork** this repository
+1. Fork this repository
 2. Create a feature branch: `git checkout -b feature/my-feature`
 3. Make your changes
-4. **Test** by loading the extension locally and checking Gemini in different states (sidebar open/closed, Canvas open/closed, different screens)
-5. Commit: `git commit -m "feat: description of change"`
-6. Push: `git push origin feature/my-feature`
-7. Open a **Pull Request**
+4. Test by loading the extension locally — check Gemini with the sidebar open/closed and Canvas open/closed
+5. Commit with a descriptive message: `git commit -m "feat: description"`
+6. Push and open a Pull Request
 
-### Ideas for Contributions
+### Ideas
 
-- 🌈 More theme presets (light mode, accent colors)
-- 📦 Chrome Web Store listing
-- 🔲 Firefox / Edge support
-- ⌨️ Keyboard shortcuts for toggling backgrounds
-- 🎭 Multiple saved profiles / themes
-
----
-
-## ⚠️ Known Limitations
-
-- **Gemini updates may break things** — Google can change Gemini's DOM structure at any time. If something looks off after a Gemini update, open an issue.
-- **Large images** — Chrome's `storage.local` has a ~10 MB quota. Very large images may fail to save. The extension automatically resizes uploads to keep them within limits.
-- **No Firefox support** — This is Chrome/Chromium only for now (Manifest V3).
+- More theme presets (light mode, accent color options)
+- Chrome Web Store listing
+- Firefox and Edge support
+- Keyboard shortcuts for toggling backgrounds
+- Multiple saved theme profiles
 
 ---
 
-## 📄 License
+## Known Limitations
+
+- **Gemini updates may break styling.** Google can change the DOM structure at any time. If something looks off after a Gemini update, please open an issue.
+- **Storage quota.** Chrome's `storage.local` has a ~10 MB limit. Very large images may fail to save. The extension automatically resizes uploads to stay within limits.
+- **Chrome only.** This extension uses Manifest V3 and is currently limited to Chrome and Chromium-based browsers.
+
+---
+
+## License
 
 This project is open-source under the [MIT License](LICENSE).
 
@@ -163,7 +178,7 @@ This project is open-source under the [MIT License](LICENSE).
 
 <div align="center">
 
-Made with ☕ by [Leon](https://github.com/Leonxlnx)
+Made by [Leon](https://github.com/Leonxlnx)
 
 </div>
 ]]>
