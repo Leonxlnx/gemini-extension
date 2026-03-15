@@ -33,13 +33,20 @@ side-navigation-content {
     box-shadow: none !important;
 }
 
-/* Kill gradient strip at bottom of sidebar conversation list */
+/* Kill ALL gradient strips / fade overlays in sidebar */
 bard-sidenav::after,
 bard-sidenav::before,
+bard-sidenav *::after,
+bard-sidenav *::before,
 side-navigation-content::after,
 side-navigation-content::before,
-side-navigation-content .nav-content::after,
-side-navigation-content .nav-content::before,
+side-navigation-content *::after,
+side-navigation-content *::before {
+    background: transparent !important;
+    background-image: none !important;
+    opacity: 0 !important;
+}
+
 bard-sidenav .conversation-title-cover {
     background: transparent !important;
     background-image: none !important;
