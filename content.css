@@ -52,6 +52,17 @@ bard-sidenav .conversation-title-cover {
     display: none !important;
 }
 
+/* Kill the actual gradient overlays from infinite-scroller */
+.top-gradient-container,
+.top-gradient,
+.bottom-gradient-container,
+.bottom-gradient {
+    background: transparent !important;
+    background-image: none !important;
+    display: none !important;
+    opacity: 0 !important;
+}
+
 /* Kill ANY border on mat-drawer / sidenav / content */
 .mat-drawer-side,
 .mat-drawer,
