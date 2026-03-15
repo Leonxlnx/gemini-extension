@@ -33,6 +33,19 @@ side-navigation-content {
     box-shadow: none !important;
 }
 
+/* Kill gradient strip at bottom of sidebar conversation list */
+bard-sidenav::after,
+bard-sidenav::before,
+side-navigation-content::after,
+side-navigation-content::before,
+side-navigation-content .nav-content::after,
+side-navigation-content .nav-content::before,
+bard-sidenav .conversation-title-cover {
+    background: transparent !important;
+    background-image: none !important;
+    display: none !important;
+}
+
 /* Kill ANY border on mat-drawer / sidenav / content */
 .mat-drawer-side,
 .mat-drawer,
