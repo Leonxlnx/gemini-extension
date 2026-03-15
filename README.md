@@ -12,17 +12,17 @@ Custom backgrounds · Floating sidebar · Per-zone darkness control · Canvas-co
 
 ## Overview
 
-This extension overhauls the look and feel of [Google Gemini](https://gemini.google.com) without touching any functionality. Everything Gemini does still works as normal — you just get a much nicer interface on top.
+This extension overhauls the look and feel of [Google Gemini](https://gemini.google.com) without touching any functionality. Everything Gemini does still works as normal - you just get a much nicer interface on top.
 
 ![Preview](preview.png)
 
 ### Features
 
-- **Custom Background Images** — Upload your own wallpapers for the main background, sidebar, input field, and message bubbles
-- **Per-Zone Darkness Sliders** — Fine-tune how dark the overlay is on each zone so your images look just right
-- **Floating Sidebar** — The left sidebar becomes a rounded, elevated panel with a soft shadow
-- **Premium Dark Theme** — Menus, dropdowns, chips, and buttons all get a cohesive dark treatment
-- **Canvas Compatible** — Works correctly when Gemini's Canvas panel is open
+- **Custom Background Images** - Upload your own wallpapers for the main background, sidebar, input field, and message bubbles
+- **Per-Zone Darkness Sliders** - Fine-tune how dark the overlay is on each zone so your images look just right
+- **Floating Sidebar** - The left sidebar becomes a rounded, elevated panel with a soft shadow
+- **Premium Dark Theme** - Menus, dropdowns, chips, and buttons all get a cohesive dark treatment
+- **Canvas Compatible** - Works correctly when Gemini's Canvas panel is open
 
 ---
 
@@ -60,7 +60,7 @@ Or click the green **Code** button on GitHub, then **Download ZIP** and unzip.
 
 **3. Open Gemini**
 
-Navigate to [gemini.google.com](https://gemini.google.com) — the redesign applies automatically.
+Navigate to [gemini.google.com](https://gemini.google.com) - the redesign applies automatically.
 
 ---
 
