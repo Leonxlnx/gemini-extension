@@ -1,5 +1,5 @@
 /**
- * Gemini UI Redesign — Content Script v0.2.23
+ * Gemini UI Redesign — Content Script v0.2.24
  * - Floating rounded sidebar
  * - Custom background images (from storage or bundled defaults)
  * - Per-zone darkness overlays
@@ -121,18 +121,13 @@
         const inputArea = document.querySelector('input-area-v2');
         if (!inputArea) return;
 
-        // Ensure overflow visible so glow beam shows below
         inputArea.style.setProperty('overflow', 'visible', 'important');
 
-        // Create glow element if not exists
         if (!glowEl || !glowEl.parentElement) {
             glowEl = document.createElement('div');
             glowEl.className = 'gemini-glow-cursor';
             inputArea.appendChild(glowEl);
         }
-
-        glowEl.style.bottom = '-15px';
-        glowEl.style.left = '50%';
 
         if (!inputArea.dataset.glowBound) {
             const updateGlowPosition = () => {
@@ -147,20 +142,34 @@
                 const rect = rects.length > 0 ? rects[0] : range.getBoundingClientRect();
                 const containerRect = inputArea.getBoundingClientRect();
 
-                if (rect && rect.height > 0) {
+                if (rect && rect.height > 0 && (rect.left > 0 || rect.right > 0)) {
                     const x = (rect.width === 0)
                         ? rect.left - containerRect.left
                         : rect.right - containerRect.left;
                     glowEl.style.left = x + 'px';
+                    glowEl.classList.add('active');
                 }
             };
 
+            // Only show on actual typing, not just focus/click into empty field
             inputArea.addEventListener('keyup', updateGlowPosition);
-            inputArea.addEventListener('click', updateGlowPosition);
             inputArea.addEventListener('input', () => {
                 requestAnimationFrame(updateGlowPosition);
             });
-            inputArea.addEventListener('focusin', updateGlowPosition);
+            inputArea.addEventListener('click', () => {
+                // Only update if there's actual text content
+                const editor = inputArea.querySelector('.ql-editor, [contenteditable]');
+                const text = editor ? editor.textContent.trim() : '';
+                if (text.length > 0) {
+                    requestAnimationFrame(updateGlowPosition);
+                }
+            });
+
+            // Hide beam when leaving input
+            inputArea.addEventListener('focusout', () => {
+                if (glowEl) glowEl.classList.remove('active');
+            });
+
             inputArea.dataset.glowBound = 'true';
         }
     }
