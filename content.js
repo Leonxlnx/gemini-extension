@@ -1,5 +1,5 @@
 /**
- * Gemini UI Redesign — Content Script v0.2.20
+ * Gemini UI Redesign — Content Script v0.2.21
  * - Floating rounded sidebar
  * - Custom background images (from storage or bundled defaults)
  * - Per-zone darkness overlays
@@ -131,11 +131,9 @@
             inputArea.appendChild(glowEl);
         }
 
-        // Position at bottom center initially
-        glowEl.style.bottom = '-10px';
+        glowEl.style.bottom = '-15px';
         glowEl.style.left = '50%';
 
-        // Bind tracking if not already
         if (!inputArea.dataset.glowBound) {
             const updateGlowPosition = () => {
                 if (!glowEl || !glowEl.parentElement) return;
@@ -145,40 +143,15 @@
                 const range = sel.getRangeAt(0);
                 if (!inputArea.contains(range.startContainer)) return;
 
-                try {
-                    // Insert a temporary marker span at caret for pixel-accurate position
-                    const marker = document.createElement('span');
-                    marker.style.cssText = 'position:relative;display:inline;width:0;height:0;overflow:visible;';
-                    marker.textContent = '\u200b'; // zero-width space
+                const rects = range.getClientRects();
+                const rect = rects.length > 0 ? rects[0] : range.getBoundingClientRect();
+                const containerRect = inputArea.getBoundingClientRect();
 
-                    const clonedRange = range.cloneRange();
-                    clonedRange.collapse(false); // collapse to end
-                    clonedRange.insertNode(marker);
-
-                    const markerRect = marker.getBoundingClientRect();
-                    const containerRect = inputArea.getBoundingClientRect();
-
-                    if (markerRect && markerRect.left > 0) {
-                        const x = markerRect.left - containerRect.left;
-                        glowEl.style.left = x + 'px';
-                    }
-
-                    // Clean up marker
-                    marker.remove();
-                    // Restore selection
-                    sel.removeAllRanges();
-                    sel.addRange(range);
-                } catch (e) {
-                    // Fallback: use getClientRects
-                    const rects = range.getClientRects();
-                    const rect = rects.length > 0 ? rects[0] : range.getBoundingClientRect();
-                    const containerRect = inputArea.getBoundingClientRect();
-                    if (rect && rect.height > 0) {
-                        const x = (rect.width === 0)
-                            ? rect.left - containerRect.left
-                            : rect.right - containerRect.left;
-                        glowEl.style.left = x + 'px';
-                    }
+                if (rect && rect.height > 0) {
+                    const x = (rect.width === 0)
+                        ? rect.left - containerRect.left
+                        : rect.right - containerRect.left;
+                    glowEl.style.left = x + 'px';
                 }
             };
 
