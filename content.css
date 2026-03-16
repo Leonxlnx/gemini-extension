@@ -152,7 +152,7 @@ body.gemini-ext-glass input-area-v2[style] {
         0 4px 24px rgba(0, 0, 0, 0.25),
         inset 0 0 0 1px rgba(255, 255, 255, calc(var(--glass-opacity, 0.55) * 0.08)) !important;
     transition: border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease !important;
-    overflow: hidden !important;
+    overflow: visible !important;
 }
 
 body.gemini-ext-glass input-area-v2:hover,
@@ -200,6 +200,7 @@ body.gemini-ext-glass input-area-v2 .mdc-text-field--no-label {
    ================================ */
 body.gemini-ext-glow input-area-v2 {
     position: relative !important;
+    overflow: visible !important;
 }
 
 /* Color the blinking typing cursor */
@@ -211,24 +212,24 @@ body.gemini-ext-glow input-area-v2 p {
     caret-color: var(--glow-color, #a855f7) !important;
 }
 
-/* The glow beam — sits at bottom of input, tracks caret X position */
+/* The glow beam — hangs below input, tracks caret X position */
 .gemini-glow-cursor {
     position: absolute;
-    width: 60px;
-    height: 50px;
-    bottom: -4px;
+    width: 80px;
+    height: 60px;
+    bottom: -10px;
     left: 50%;
     pointer-events: none;
-    z-index: 100;
+    z-index: 9999;
     background: radial-gradient(
-        ellipse 30px 25px at center top,
+        ellipse 40px 30px at center top,
         var(--glow-color, #a855f7) 0%,
-        rgba(168, 85, 247, 0.4) 30%,
+        color-mix(in srgb, var(--glow-color, #a855f7) 40%, transparent) 35%,
         transparent 100%
     );
     opacity: var(--glow-intensity, 0.5);
-    filter: blur(8px);
-    transition: left 0.05s linear, opacity 0.2s ease;
+    filter: blur(10px);
+    transition: left 0.06s linear, opacity 0.25s ease;
     transform: translateX(-50%);
 }
 

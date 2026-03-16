@@ -1,5 +1,5 @@
 /**
- * Gemini UI Redesign — Content Script v0.2.19
+ * Gemini UI Redesign — Content Script v0.2.20
  * - Floating rounded sidebar
  * - Custom background images (from storage or bundled defaults)
  * - Per-zone darkness overlays
@@ -121,6 +121,9 @@
         const inputArea = document.querySelector('input-area-v2');
         if (!inputArea) return;
 
+        // Ensure overflow visible so glow beam shows below
+        inputArea.style.setProperty('overflow', 'visible', 'important');
+
         // Create glow element if not exists
         if (!glowEl || !glowEl.parentElement) {
             glowEl = document.createElement('div');
@@ -129,7 +132,7 @@
         }
 
         // Position at bottom center initially
-        glowEl.style.bottom = '-4px';
+        glowEl.style.bottom = '-10px';
         glowEl.style.left = '50%';
 
         // Bind tracking if not already
@@ -142,16 +145,40 @@
                 const range = sel.getRangeAt(0);
                 if (!inputArea.contains(range.startContainer)) return;
 
-                const rects = range.getClientRects();
-                const rect = rects.length > 0 ? rects[0] : range.getBoundingClientRect();
-                const containerRect = inputArea.getBoundingClientRect();
+                try {
+                    // Insert a temporary marker span at caret for pixel-accurate position
+                    const marker = document.createElement('span');
+                    marker.style.cssText = 'position:relative;display:inline;width:0;height:0;overflow:visible;';
+                    marker.textContent = '\u200b'; // zero-width space
 
-                if (rect && rect.height > 0) {
-                    // Position glow at the caret's X coordinate
-                    const x = (rect.width === 0)
-                        ? rect.left - containerRect.left
-                        : rect.right - containerRect.left;
-                    glowEl.style.left = x + 'px';
+                    const clonedRange = range.cloneRange();
+                    clonedRange.collapse(false); // collapse to end
+                    clonedRange.insertNode(marker);
+
+                    const markerRect = marker.getBoundingClientRect();
+                    const containerRect = inputArea.getBoundingClientRect();
+
+                    if (markerRect && markerRect.left > 0) {
+                        const x = markerRect.left - containerRect.left;
+                        glowEl.style.left = x + 'px';
+                    }
+
+                    // Clean up marker
+                    marker.remove();
+                    // Restore selection
+                    sel.removeAllRanges();
+                    sel.addRange(range);
+                } catch (e) {
+                    // Fallback: use getClientRects
+                    const rects = range.getClientRects();
+                    const rect = rects.length > 0 ? rects[0] : range.getBoundingClientRect();
+                    const containerRect = inputArea.getBoundingClientRect();
+                    if (rect && rect.height > 0) {
+                        const x = (rect.width === 0)
+                            ? rect.left - containerRect.left
+                            : rect.right - containerRect.left;
+                        glowEl.style.left = x + 'px';
+                    }
                 }
             };
 
