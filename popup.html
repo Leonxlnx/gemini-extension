@@ -14,7 +14,7 @@
             <div class="logo-row">
                 <img class="logo-icon" src="icon.svg" alt="Gemini" width="22" height="22">
                 <h1>Gemini UI</h1>
-                <span class="version-badge">v0.2.16</span>
+                <span class="version-badge">v0.2.17</span>
             </div>
             <p class="subtitle">Customize your Gemini experience</p>
         </header>
@@ -37,18 +37,43 @@
             </label>
         </div>
 
-        <!-- Glassmorphism Toggle + Blur Slider -->
-        <div class="toggle-row glass-row">
-            <span class="toggle-label">Glass Input</span>
-            <label class="toggle-switch">
-                <input type="checkbox" id="toggle-glass">
-                <span class="toggle-slider"></span>
-            </label>
-        </div>
-        <div class="glass-slider-row" id="glass-slider-row">
-            <span class="zone-slider-label">Blur</span>
-            <input type="range" id="glass-blur-slider" min="0" max="40" value="24" step="2">
-            <span class="zone-slider-value" id="glass-blur-value">24px</span>
+        <!-- Glass & Glow Settings -->
+        <div class="fx-section">
+            <div class="fx-section-title">Glass & Glow</div>
+
+            <div class="fx-slider-row">
+                <span class="fx-label">Glass</span>
+                <input type="range" id="glass-intensity" min="0" max="100" value="0" step="5">
+                <span class="fx-value" id="glass-intensity-value">0%</span>
+            </div>
+
+            <div class="fx-slider-row" id="glass-blur-row">
+                <span class="fx-label">Blur</span>
+                <input type="range" id="glass-blur-slider" min="0" max="40" value="24" step="2">
+                <span class="fx-value" id="glass-blur-value">24px</span>
+            </div>
+
+            <div class="fx-divider"></div>
+
+            <div class="fx-slider-row">
+                <span class="fx-label">Glow</span>
+                <input type="range" id="glow-intensity" min="0" max="100" value="0" step="5">
+                <span class="fx-value" id="glow-intensity-value">0%</span>
+            </div>
+
+            <div class="fx-color-row" id="glow-color-row">
+                <span class="fx-label">Color</span>
+                <div class="color-presets" id="glow-presets">
+                    <button class="color-dot active" data-color="#a855f7" style="background:#a855f7" title="Purple"></button>
+                    <button class="color-dot" data-color="#3b82f6" style="background:#3b82f6" title="Blue"></button>
+                    <button class="color-dot" data-color="#06b6d4" style="background:#06b6d4" title="Cyan"></button>
+                    <button class="color-dot" data-color="#f97316" style="background:#f97316" title="Orange"></button>
+                    <button class="color-dot" data-color="#ef4444" style="background:#ef4444" title="Red"></button>
+                    <button class="color-dot" data-color="#10b981" style="background:#10b981" title="Green"></button>
+                    <button class="color-dot" data-color="#f5f5f5" style="background:#f5f5f5" title="White"></button>
+                </div>
+                <input type="color" id="glow-color-custom" value="#a855f7" class="color-custom" title="Custom color">
+            </div>
         </div>
 
         <!-- Drop Zones with individual darkness sliders -->

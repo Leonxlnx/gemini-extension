@@ -1,5 +1,5 @@
 /**
- * Gemini UI Redesign — Content Script v0.2.16
+ * Gemini UI Redesign — Content Script v0.2.17
  * - Floating rounded sidebar
  * - Custom background images (from storage or bundled defaults)
  * - Per-zone darkness overlays
@@ -24,8 +24,10 @@
     let MSG_BG = DEFAULT_MSG;
     let BACKGROUNDS_ENABLED = true;
     let HIDE_UPGRADE = false;
-    let GLASS_ENABLED = false;
+    let GLASS_INTENSITY = 0;   // 0-100
     let GLASS_BLUR = 24;
+    let GLOW_INTENSITY = 0;    // 0-100
+    let GLOW_COLOR = '#a855f7';
 
     // === PER-ZONE DARKNESS (0.0 – 0.8) ===
     let DARKNESS_BG = 0.6;
@@ -37,13 +39,16 @@
     function loadImagesFromStorage(callback) {
         chrome.storage.local.get(
             ['bg_custom', 'sidebar_custom', 'input_custom', 'msg_custom',
-                'backgrounds_enabled', 'hide_upgrade', 'glass_enabled', 'glass_blur',
+                'backgrounds_enabled', 'hide_upgrade',
+                'glass_intensity', 'glass_blur', 'glow_intensity', 'glow_color',
                 'darkness_bg', 'darkness_sidebar', 'darkness_input', 'darkness_msg'],
             (data) => {
                 BACKGROUNDS_ENABLED = data.backgrounds_enabled !== false;
                 HIDE_UPGRADE = data.hide_upgrade === true;
-                GLASS_ENABLED = data.glass_enabled === true;
+                GLASS_INTENSITY = data.glass_intensity ?? 0;
                 GLASS_BLUR = data.glass_blur ?? 24;
+                GLOW_INTENSITY = data.glow_intensity ?? 0;
+                GLOW_COLOR = data.glow_color ?? '#a855f7';
 
                 // Per-zone darkness
                 DARKNESS_BG = (data.darkness_bg ?? 60) / 100;
@@ -69,16 +74,102 @@
     }
 
     // === HIDE UPGRADE BUTTON ===
-    // === GLASSMORPHISM ===
+    // === GLASSMORPHISM (intensity-based) ===
     function applyGlass() {
         if (!document.body) return;
-        if (GLASS_ENABLED) {
+        if (GLASS_INTENSITY > 0) {
             document.body.classList.add('gemini-ext-glass');
-            document.body.style.setProperty('--glass-blur', GLASS_BLUR + 'px');
+            // Map 0-100 to opacity 0.0-0.7
+            const opacity = (GLASS_INTENSITY / 100) * 0.7;
+            // Map 0-100 to actual blur (proportional to slider max)
+            const blur = (GLASS_INTENSITY / 100) * GLASS_BLUR;
+            document.body.style.setProperty('--glass-opacity', opacity);
+            document.body.style.setProperty('--glass-blur', blur + 'px');
         } else {
             document.body.classList.remove('gemini-ext-glass');
+            document.body.style.removeProperty('--glass-opacity');
             document.body.style.removeProperty('--glass-blur');
         }
+    }
+
+    // === INPUT GLOW (cursor-following) ===
+    let glowEl = null;
+
+    function applyGlow() {
+        if (!document.body) return;
+        if (GLOW_INTENSITY > 0) {
+            document.body.classList.add('gemini-ext-glow');
+            document.body.style.setProperty('--glow-color', GLOW_COLOR);
+            document.body.style.setProperty('--glow-intensity', GLOW_INTENSITY / 100);
+            setupGlowTracking();
+        } else {
+            document.body.classList.remove('gemini-ext-glow');
+            document.body.style.removeProperty('--glow-color');
+            document.body.style.removeProperty('--glow-intensity');
+            removeGlow();
+        }
+    }
+
+    function setupGlowTracking() {
+        const inputArea = document.querySelector('input-area-v2');
+        if (!inputArea) return;
+
+        // Create glow element if not exists
+        if (!glowEl || !glowEl.parentElement) {
+            glowEl = document.createElement('div');
+            glowEl.className = 'gemini-glow-cursor';
+            inputArea.appendChild(glowEl);
+        }
+
+        // Position at bottom center initially
+        glowEl.style.bottom = '-6px';
+        glowEl.style.left = '50%';
+
+        // Bind tracking if not already
+        if (!inputArea.dataset.glowBound) {
+            const updateGlowPosition = () => {
+                if (!glowEl || !glowEl.parentElement) return;
+                const sel = window.getSelection();
+                if (!sel || sel.rangeCount === 0) return;
+
+                const range = sel.getRangeAt(0);
+                // Only track if cursor is inside the input area
+                if (!inputArea.contains(range.startContainer)) return;
+
+                const rects = range.getClientRects();
+                const rect = rects.length > 0 ? rects[0] : range.getBoundingClientRect();
+                const containerRect = inputArea.getBoundingClientRect();
+
+                if (rect && rect.width === 0 && rect.height > 0) {
+                    // Caret position (collapsed range)
+                    const x = rect.left - containerRect.left + rect.width / 2;
+                    glowEl.style.left = x + 'px';
+                    glowEl.style.bottom = '-6px';
+                } else if (rect && rect.width > 0) {
+                    // Selection — position at end
+                    const x = rect.right - containerRect.left;
+                    glowEl.style.left = x + 'px';
+                    glowEl.style.bottom = '-6px';
+                }
+            };
+
+            // Track on typing, clicking, arrow keys
+            inputArea.addEventListener('keyup', updateGlowPosition);
+            inputArea.addEventListener('click', updateGlowPosition);
+            inputArea.addEventListener('input', () => {
+                requestAnimationFrame(updateGlowPosition);
+            });
+            // Also track focus
+            inputArea.addEventListener('focusin', updateGlowPosition);
+            inputArea.dataset.glowBound = 'true';
+        }
+    }
+
+    function removeGlow() {
+        if (glowEl && glowEl.parentElement) {
+            glowEl.remove();
+        }
+        glowEl = null;
     }
 
     function applyHideUpgrade() {
@@ -95,6 +186,7 @@
         if (!document.body) return;
         applyHideUpgrade();
         applyGlass();
+        applyGlow();
         if (BG_URL) {
             const d = DARKNESS_BG;
             document.body.style.setProperty('background-image', `linear-gradient(rgba(0,0,0,${d}), rgba(0,0,0,${d})), url("${BG_URL}")`, 'important');

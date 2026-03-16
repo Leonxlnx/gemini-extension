@@ -13,10 +13,17 @@
 
     const toggleInput = document.getElementById('toggle-backgrounds');
     const toggleHideUpgrade = document.getElementById('toggle-hide-upgrade');
-    const toggleGlass = document.getElementById('toggle-glass');
+    // Glass & Glow elements
+    const glassIntensity = document.getElementById('glass-intensity');
+    const glassIntensityValue = document.getElementById('glass-intensity-value');
     const glassBlurSlider = document.getElementById('glass-blur-slider');
     const glassBlurValue = document.getElementById('glass-blur-value');
-    const glassSliderRow = document.getElementById('glass-slider-row');
+    const glassBlurRow = document.getElementById('glass-blur-row');
+    const glowIntensity = document.getElementById('glow-intensity');
+    const glowIntensityValue = document.getElementById('glow-intensity-value');
+    const glowColorRow = document.getElementById('glow-color-row');
+    const glowPresets = document.getElementById('glow-presets');
+    const glowColorCustom = document.getElementById('glow-color-custom');
     const zonesContainer = document.getElementById('zones-container');
 
     // All per-zone darkness sliders
@@ -24,7 +31,8 @@
 
     // === LOAD STATE ===
     function loadState() {
-        chrome.storage.local.get([...KEYS, ...DARKNESS_KEYS, 'backgrounds_enabled', 'hide_upgrade', 'glass_enabled', 'glass_blur'], (data) => {
+        chrome.storage.local.get([...KEYS, ...DARKNESS_KEYS, 'backgrounds_enabled', 'hide_upgrade',
+            'glass_intensity', 'glass_blur', 'glow_intensity', 'glow_color'], (data) => {
             // Toggle
             const enabled = data.backgrounds_enabled !== false;
             toggleInput.checked = enabled;
@@ -33,13 +41,25 @@
             // Hide Upgrade toggle
             toggleHideUpgrade.checked = data.hide_upgrade === true;
 
-            // Glassmorphism toggle + blur
-            const glassOn = data.glass_enabled === true;
-            toggleGlass.checked = glassOn;
-            updateGlassSliderState(glassOn);
+            // Glass intensity (0-100)
+            const gi = data.glass_intensity ?? 0;
+            glassIntensity.value = gi;
+            glassIntensityValue.textContent = gi + '%';
+            updateBlurRowState(gi > 0);
+
             const blur = data.glass_blur ?? 24;
             glassBlurSlider.value = blur;
             glassBlurValue.textContent = blur + 'px';
+
+            // Glow
+            const glowI = data.glow_intensity ?? 0;
+            glowIntensity.value = glowI;
+            glowIntensityValue.textContent = glowI + '%';
+            updateGlowColorState(glowI > 0);
+
+            const glowC = data.glow_color ?? '#a855f7';
+            glowColorCustom.value = glowC;
+            setActivePreset(glowC);
 
             // Per-zone darkness sliders
             darknessSliders.forEach(slider => {
@@ -58,12 +78,26 @@
         });
     }
 
-    function updateGlassSliderState(enabled) {
+    function updateBlurRowState(enabled) {
         if (enabled) {
-            glassSliderRow.classList.remove('disabled');
+            glassBlurRow.classList.remove('disabled');
         } else {
-            glassSliderRow.classList.add('disabled');
+            glassBlurRow.classList.add('disabled');
         }
+    }
+
+    function updateGlowColorState(enabled) {
+        if (enabled) {
+            glowColorRow.classList.remove('disabled');
+        } else {
+            glowColorRow.classList.add('disabled');
+        }
+    }
+
+    function setActivePreset(color) {
+        glowPresets.querySelectorAll('.color-dot').forEach(dot => {
+            dot.classList.toggle('active', dot.dataset.color === color);
+        });
     }
 
     function updateDisabledState(enabled) {
@@ -191,16 +225,20 @@
         });
     });
 
-    // === GLASSMORPHISM TOGGLE ===
-    toggleGlass.addEventListener('change', () => {
-        const enabled = toggleGlass.checked;
-        chrome.storage.local.set({ glass_enabled: enabled }, () => {
-            updateGlassSliderState(enabled);
+    // === GLASS INTENSITY SLIDER ===
+    glassIntensity.addEventListener('input', () => {
+        glassIntensityValue.textContent = parseInt(glassIntensity.value) + '%';
+    });
+
+    glassIntensity.addEventListener('change', () => {
+        const val = parseInt(glassIntensity.value);
+        updateBlurRowState(val > 0);
+        chrome.storage.local.set({ glass_intensity: val }, () => {
             refreshGeminiTabs();
         });
     });
 
-    // === GLASSMORPHISM BLUR SLIDER ===
+    // === GLASS BLUR SLIDER ===
     glassBlurSlider.addEventListener('input', () => {
         glassBlurValue.textContent = parseInt(glassBlurSlider.value) + 'px';
     });
@@ -208,6 +246,40 @@
     glassBlurSlider.addEventListener('change', () => {
         const val = parseInt(glassBlurSlider.value);
         chrome.storage.local.set({ glass_blur: val }, () => {
+            refreshGeminiTabs();
+        });
+    });
+
+    // === GLOW INTENSITY SLIDER ===
+    glowIntensity.addEventListener('input', () => {
+        glowIntensityValue.textContent = parseInt(glowIntensity.value) + '%';
+    });
+
+    glowIntensity.addEventListener('change', () => {
+        const val = parseInt(glowIntensity.value);
+        updateGlowColorState(val > 0);
+        chrome.storage.local.set({ glow_intensity: val }, () => {
+            refreshGeminiTabs();
+        });
+    });
+
+    // === GLOW COLOR PRESETS ===
+    glowPresets.querySelectorAll('.color-dot').forEach(dot => {
+        dot.addEventListener('click', () => {
+            const color = dot.dataset.color;
+            setActivePreset(color);
+            glowColorCustom.value = color;
+            chrome.storage.local.set({ glow_color: color }, () => {
+                refreshGeminiTabs();
+            });
+        });
+    });
+
+    // === GLOW CUSTOM COLOR ===
+    glowColorCustom.addEventListener('input', () => {
+        const color = glowColorCustom.value;
+        setActivePreset(color);
+        chrome.storage.local.set({ glow_color: color }, () => {
             refreshGeminiTabs();
         });
     });
