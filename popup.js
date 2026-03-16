@@ -13,6 +13,10 @@
 
     const toggleInput = document.getElementById('toggle-backgrounds');
     const toggleHideUpgrade = document.getElementById('toggle-hide-upgrade');
+    const toggleGlass = document.getElementById('toggle-glass');
+    const glassBlurSlider = document.getElementById('glass-blur-slider');
+    const glassBlurValue = document.getElementById('glass-blur-value');
+    const glassSliderRow = document.getElementById('glass-slider-row');
     const zonesContainer = document.getElementById('zones-container');
 
     // All per-zone darkness sliders
@@ -20,7 +24,7 @@
 
     // === LOAD STATE ===
     function loadState() {
-        chrome.storage.local.get([...KEYS, ...DARKNESS_KEYS, 'backgrounds_enabled', 'hide_upgrade'], (data) => {
+        chrome.storage.local.get([...KEYS, ...DARKNESS_KEYS, 'backgrounds_enabled', 'hide_upgrade', 'glass_enabled', 'glass_blur'], (data) => {
             // Toggle
             const enabled = data.backgrounds_enabled !== false;
             toggleInput.checked = enabled;
@@ -28,6 +32,14 @@
 
             // Hide Upgrade toggle
             toggleHideUpgrade.checked = data.hide_upgrade === true;
+
+            // Glassmorphism toggle + blur
+            const glassOn = data.glass_enabled === true;
+            toggleGlass.checked = glassOn;
+            updateGlassSliderState(glassOn);
+            const blur = data.glass_blur ?? 24;
+            glassBlurSlider.value = blur;
+            glassBlurValue.textContent = blur + 'px';
 
             // Per-zone darkness sliders
             darknessSliders.forEach(slider => {
@@ -44,6 +56,14 @@
                 }
             });
         });
+    }
+
+    function updateGlassSliderState(enabled) {
+        if (enabled) {
+            glassSliderRow.classList.remove('disabled');
+        } else {
+            glassSliderRow.classList.add('disabled');
+        }
     }
 
     function updateDisabledState(enabled) {
@@ -167,6 +187,27 @@
     toggleHideUpgrade.addEventListener('change', () => {
         const hide = toggleHideUpgrade.checked;
         chrome.storage.local.set({ hide_upgrade: hide }, () => {
+            refreshGeminiTabs();
+        });
+    });
+
+    // === GLASSMORPHISM TOGGLE ===
+    toggleGlass.addEventListener('change', () => {
+        const enabled = toggleGlass.checked;
+        chrome.storage.local.set({ glass_enabled: enabled }, () => {
+            updateGlassSliderState(enabled);
+            refreshGeminiTabs();
+        });
+    });
+
+    // === GLASSMORPHISM BLUR SLIDER ===
+    glassBlurSlider.addEventListener('input', () => {
+        glassBlurValue.textContent = parseInt(glassBlurSlider.value) + 'px';
+    });
+
+    glassBlurSlider.addEventListener('change', () => {
+        const val = parseInt(glassBlurSlider.value);
+        chrome.storage.local.set({ glass_blur: val }, () => {
             refreshGeminiTabs();
         });
     });

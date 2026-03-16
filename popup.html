@@ -14,7 +14,7 @@
             <div class="logo-row">
                 <img class="logo-icon" src="icon.svg" alt="Gemini" width="22" height="22">
                 <h1>Gemini UI</h1>
-                <span class="version-badge">v0.2.15</span>
+                <span class="version-badge">v0.2.16</span>
             </div>
             <p class="subtitle">Customize your Gemini experience</p>
         </header>
@@ -35,6 +35,20 @@
                 <input type="checkbox" id="toggle-hide-upgrade">
                 <span class="toggle-slider"></span>
             </label>
+        </div>
+
+        <!-- Glassmorphism Toggle + Blur Slider -->
+        <div class="toggle-row glass-row">
+            <span class="toggle-label">Glass Input</span>
+            <label class="toggle-switch">
+                <input type="checkbox" id="toggle-glass">
+                <span class="toggle-slider"></span>
+            </label>
+        </div>
+        <div class="glass-slider-row" id="glass-slider-row">
+            <span class="zone-slider-label">Blur</span>
+            <input type="range" id="glass-blur-slider" min="0" max="40" value="24" step="2">
+            <span class="zone-slider-value" id="glass-blur-value">24px</span>
         </div>
 
         <!-- Drop Zones with individual darkness sliders -->

@@ -136,8 +136,60 @@ input-container {
 }
 
 /* ================================
-   INPUT FIELD — fully default, no overrides
+   INPUT FIELD — Glassmorphism (conditional)
+   Only active when body has .gemini-ext-glass class
+   Blur controlled via --glass-blur CSS variable
    ================================ */
+body.gemini-ext-glass input-area-v2,
+body.gemini-ext-glass input-area-v2[style] {
+    background: rgba(18, 18, 22, 0.55) !important;
+    backdrop-filter: blur(var(--glass-blur, 24px)) saturate(1.4) !important;
+    -webkit-backdrop-filter: blur(var(--glass-blur, 24px)) saturate(1.4) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border-radius: 24px !important;
+    box-shadow:
+        0 4px 24px rgba(0, 0, 0, 0.25),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.04) !important;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, backdrop-filter 0.3s ease !important;
+    overflow: hidden !important;
+}
+
+body.gemini-ext-glass input-area-v2:hover,
+body.gemini-ext-glass input-area-v2[style]:hover {
+    border-color: rgba(255, 255, 255, 0.14) !important;
+    box-shadow:
+        0 4px 24px rgba(0, 0, 0, 0.3),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.06),
+        0 0 20px rgba(138, 180, 248, 0.04) !important;
+}
+
+body.gemini-ext-glass input-area-v2:focus-within,
+body.gemini-ext-glass input-area-v2[style]:focus-within {
+    border-color: rgba(138, 180, 248, 0.2) !important;
+    box-shadow:
+        0 4px 24px rgba(0, 0, 0, 0.3),
+        inset 0 0 0 1px rgba(138, 180, 248, 0.06),
+        0 0 24px rgba(138, 180, 248, 0.06) !important;
+}
+
+/* Make internal elements transparent so glass shows through */
+body.gemini-ext-glass input-area-v2 fieldset,
+body.gemini-ext-glass input-area-v2 .input-area-container,
+body.gemini-ext-glass input-area-v2 .text-input-field,
+body.gemini-ext-glass input-area-v2 .ql-editor,
+body.gemini-ext-glass input-area-v2 rich-textarea,
+body.gemini-ext-glass input-area-v2 .textarea-wrapper {
+    background: transparent !important;
+    background-color: transparent !important;
+}
+
+/* Override any mat-form-field background overrides */
+body.gemini-ext-glass input-area-v2 .mat-mdc-text-field-wrapper,
+body.gemini-ext-glass input-area-v2 .mdc-text-field,
+body.gemini-ext-glass input-area-v2 .mdc-text-field--filled {
+    background: transparent !important;
+    background-color: transparent !important;
+}
 
 /* ================================
    TOOLBAR BUTTONS — +, Tools, Mic, Send

@@ -1,5 +1,5 @@
 /**
- * Gemini UI Redesign — Content Script v0.2.15
+ * Gemini UI Redesign — Content Script v0.2.16
  * - Floating rounded sidebar
  * - Custom background images (from storage or bundled defaults)
  * - Per-zone darkness overlays
@@ -24,6 +24,8 @@
     let MSG_BG = DEFAULT_MSG;
     let BACKGROUNDS_ENABLED = true;
     let HIDE_UPGRADE = false;
+    let GLASS_ENABLED = false;
+    let GLASS_BLUR = 24;
 
     // === PER-ZONE DARKNESS (0.0 – 0.8) ===
     let DARKNESS_BG = 0.6;
@@ -35,11 +37,13 @@
     function loadImagesFromStorage(callback) {
         chrome.storage.local.get(
             ['bg_custom', 'sidebar_custom', 'input_custom', 'msg_custom',
-                'backgrounds_enabled', 'hide_upgrade',
+                'backgrounds_enabled', 'hide_upgrade', 'glass_enabled', 'glass_blur',
                 'darkness_bg', 'darkness_sidebar', 'darkness_input', 'darkness_msg'],
             (data) => {
                 BACKGROUNDS_ENABLED = data.backgrounds_enabled !== false;
                 HIDE_UPGRADE = data.hide_upgrade === true;
+                GLASS_ENABLED = data.glass_enabled === true;
+                GLASS_BLUR = data.glass_blur ?? 24;
 
                 // Per-zone darkness
                 DARKNESS_BG = (data.darkness_bg ?? 60) / 100;
@@ -65,6 +69,18 @@
     }
 
     // === HIDE UPGRADE BUTTON ===
+    // === GLASSMORPHISM ===
+    function applyGlass() {
+        if (!document.body) return;
+        if (GLASS_ENABLED) {
+            document.body.classList.add('gemini-ext-glass');
+            document.body.style.setProperty('--glass-blur', GLASS_BLUR + 'px');
+        } else {
+            document.body.classList.remove('gemini-ext-glass');
+            document.body.style.removeProperty('--glass-blur');
+        }
+    }
+
     function applyHideUpgrade() {
         if (!document.body) return;
         if (HIDE_UPGRADE) {
@@ -78,6 +94,7 @@
     function applyBackground() {
         if (!document.body) return;
         applyHideUpgrade();
+        applyGlass();
         if (BG_URL) {
             const d = DARKNESS_BG;
             document.body.style.setProperty('background-image', `linear-gradient(rgba(0,0,0,${d}), rgba(0,0,0,${d})), url("${BG_URL}")`, 'important');

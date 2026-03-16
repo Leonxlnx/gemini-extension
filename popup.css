@@ -1,5 +1,5 @@
 /* ============================================
-   Gemini UI Redesign — Popup v0.2.15
+   Gemini UI Redesign — Popup v0.2.16
    Premium dark theme — Gemini Blue accent
    ============================================ */
 
@@ -326,6 +326,21 @@ input[type="range"]::-webkit-slider-thumb:hover {
     min-width: 28px;
     text-align: right;
     flex-shrink: 0;
+}
+
+/* === GLASS SLIDER ROW === */
+.glass-slider-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 0 14px 6px 14px;
+    transition: opacity 0.3s ease, filter 0.3s ease;
+}
+
+.glass-slider-row.disabled {
+    opacity: 0.3;
+    pointer-events: none;
+    filter: grayscale(1);
 }
 
 /* === FOOTER === */
