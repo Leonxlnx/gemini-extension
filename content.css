@@ -138,90 +138,73 @@ input-container {
 /* ================================
    INPUT FIELD — Glassmorphism (intensity-based)
    Uses --glass-opacity and --glass-blur CSS variables
+   When active: REAL transparency + backdrop-filter blur
    ================================ */
 body.gemini-ext-glass input-area-v2,
 body.gemini-ext-glass input-area-v2[style] {
     background: rgba(18, 18, 22, var(--glass-opacity, 0.55)) !important;
+    background-image: none !important;
     backdrop-filter: blur(var(--glass-blur, 24px)) saturate(1.4) !important;
     -webkit-backdrop-filter: blur(var(--glass-blur, 24px)) saturate(1.4) !important;
-    border: 1px solid rgba(255, 255, 255, calc(var(--glass-opacity, 0.55) * 0.15)) !important;
+    border: 1px solid rgba(255, 255, 255, calc(var(--glass-opacity, 0.55) * 0.18)) !important;
     border-radius: 24px !important;
     box-shadow:
         0 4px 24px rgba(0, 0, 0, 0.25),
         inset 0 0 0 1px rgba(255, 255, 255, calc(var(--glass-opacity, 0.55) * 0.08)) !important;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease !important;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease !important;
     overflow: hidden !important;
 }
 
 body.gemini-ext-glass input-area-v2:hover,
 body.gemini-ext-glass input-area-v2[style]:hover {
-    border-color: rgba(255, 255, 255, calc(var(--glass-opacity, 0.55) * 0.25)) !important;
+    border-color: rgba(255, 255, 255, calc(var(--glass-opacity, 0.55) * 0.3)) !important;
     box-shadow:
         0 4px 24px rgba(0, 0, 0, 0.3),
-        inset 0 0 0 1px rgba(255, 255, 255, calc(var(--glass-opacity, 0.55) * 0.12)) !important;
+        inset 0 0 0 1px rgba(255, 255, 255, calc(var(--glass-opacity, 0.55) * 0.14)) !important;
 }
 
 body.gemini-ext-glass input-area-v2:focus-within,
 body.gemini-ext-glass input-area-v2[style]:focus-within {
-    border-color: rgba(138, 180, 248, calc(var(--glass-opacity, 0.55) * 0.35)) !important;
+    border-color: rgba(138, 180, 248, calc(var(--glass-opacity, 0.55) * 0.4)) !important;
     box-shadow:
         0 4px 24px rgba(0, 0, 0, 0.3),
-        inset 0 0 0 1px rgba(138, 180, 248, calc(var(--glass-opacity, 0.55) * 0.1)) !important;
+        0 0 20px rgba(138, 180, 248, calc(var(--glass-opacity, 0.55) * 0.08)),
+        inset 0 0 0 1px rgba(138, 180, 248, calc(var(--glass-opacity, 0.55) * 0.12)) !important;
 }
 
-/* Make internal elements transparent so glass shows through */
+/* Force ALL internal elements transparent so glass + blur shows through */
 body.gemini-ext-glass input-area-v2 fieldset,
 body.gemini-ext-glass input-area-v2 .input-area-container,
 body.gemini-ext-glass input-area-v2 .text-input-field,
 body.gemini-ext-glass input-area-v2 .ql-editor,
 body.gemini-ext-glass input-area-v2 rich-textarea,
-body.gemini-ext-glass input-area-v2 .textarea-wrapper {
+body.gemini-ext-glass input-area-v2 .textarea-wrapper,
+body.gemini-ext-glass input-area-v2 .text-input-field_textarea-wrapper {
     background: transparent !important;
     background-color: transparent !important;
+    background-image: none !important;
 }
 
 body.gemini-ext-glass input-area-v2 .mat-mdc-text-field-wrapper,
 body.gemini-ext-glass input-area-v2 .mdc-text-field,
-body.gemini-ext-glass input-area-v2 .mdc-text-field--filled {
+body.gemini-ext-glass input-area-v2 .mdc-text-field--filled,
+body.gemini-ext-glass input-area-v2 .mdc-text-field--no-label {
     background: transparent !important;
     background-color: transparent !important;
+    background-image: none !important;
 }
 
 /* ================================
-   INPUT GLOW — Cursor-following light + colored caret
+   INPUT GLOW — Clean colored caret only (NO blob)
    ================================ */
-body.gemini-ext-glow input-area-v2 {
-    position: relative !important;
-    overflow: visible !important;
-}
 
-/* Color the actual blinking typing cursor */
+/* Color the actual blinking typing cursor — clean, no blob */
 body.gemini-ext-glow input-area-v2 .ql-editor,
 body.gemini-ext-glow input-area-v2 [contenteditable],
 body.gemini-ext-glow input-area-v2 rich-textarea,
 body.gemini-ext-glow input-area-v2 textarea,
 body.gemini-ext-glow input-area-v2 p {
     caret-color: var(--glow-color, #a855f7) !important;
-}
-
-/* The glow light blob — positioned by JS at caret location */
-.gemini-glow-cursor {
-    position: absolute;
-    width: 80px;
-    height: 40px;
-    bottom: -10px;
-    left: 50%;
-    pointer-events: none;
-    z-index: 100;
-    background: radial-gradient(
-        ellipse 40px 20px at center,
-        var(--glow-color, #a855f7) 0%,
-        transparent 100%
-    );
-    opacity: var(--glow-intensity, 0.5);
-    filter: blur(10px);
-    transition: left 0.06s linear, opacity 0.25s ease;
-    transform: translateX(-50%);
 }
 
 /* ================================

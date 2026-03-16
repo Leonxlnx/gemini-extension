@@ -1,5 +1,5 @@
 /**
- * Gemini UI Redesign — Content Script v0.2.17
+ * Gemini UI Redesign — Content Script v0.2.18
  * - Floating rounded sidebar
  * - Custom background images (from storage or bundled defaults)
  * - Per-zone darkness overlays
@@ -85,6 +85,13 @@
             const blur = (GLASS_INTENSITY / 100) * GLASS_BLUR;
             document.body.style.setProperty('--glass-opacity', opacity);
             document.body.style.setProperty('--glass-blur', blur + 'px');
+
+            // Force-clear input background image so backdrop-filter blur works
+            const inputArea = document.querySelector('input-area-v2');
+            if (inputArea) {
+                inputArea.style.removeProperty('background-image');
+                inputArea.style.setProperty('background-image', 'none', 'important');
+            }
         } else {
             document.body.classList.remove('gemini-ext-glass');
             document.body.style.removeProperty('--glass-opacity');
@@ -92,84 +99,16 @@
         }
     }
 
-    // === INPUT GLOW (cursor-following) ===
-    let glowEl = null;
-
+    // === INPUT GLOW (clean caret-color only, no blob) ===
     function applyGlow() {
         if (!document.body) return;
         if (GLOW_INTENSITY > 0) {
             document.body.classList.add('gemini-ext-glow');
             document.body.style.setProperty('--glow-color', GLOW_COLOR);
-            document.body.style.setProperty('--glow-intensity', GLOW_INTENSITY / 100);
-            setupGlowTracking();
         } else {
             document.body.classList.remove('gemini-ext-glow');
             document.body.style.removeProperty('--glow-color');
-            document.body.style.removeProperty('--glow-intensity');
-            removeGlow();
         }
-    }
-
-    function setupGlowTracking() {
-        const inputArea = document.querySelector('input-area-v2');
-        if (!inputArea) return;
-
-        // Create glow element if not exists
-        if (!glowEl || !glowEl.parentElement) {
-            glowEl = document.createElement('div');
-            glowEl.className = 'gemini-glow-cursor';
-            inputArea.appendChild(glowEl);
-        }
-
-        // Position at bottom center initially
-        glowEl.style.bottom = '-6px';
-        glowEl.style.left = '50%';
-
-        // Bind tracking if not already
-        if (!inputArea.dataset.glowBound) {
-            const updateGlowPosition = () => {
-                if (!glowEl || !glowEl.parentElement) return;
-                const sel = window.getSelection();
-                if (!sel || sel.rangeCount === 0) return;
-
-                const range = sel.getRangeAt(0);
-                // Only track if cursor is inside the input area
-                if (!inputArea.contains(range.startContainer)) return;
-
-                const rects = range.getClientRects();
-                const rect = rects.length > 0 ? rects[0] : range.getBoundingClientRect();
-                const containerRect = inputArea.getBoundingClientRect();
-
-                if (rect && rect.width === 0 && rect.height > 0) {
-                    // Caret position (collapsed range)
-                    const x = rect.left - containerRect.left + rect.width / 2;
-                    glowEl.style.left = x + 'px';
-                    glowEl.style.bottom = '-6px';
-                } else if (rect && rect.width > 0) {
-                    // Selection — position at end
-                    const x = rect.right - containerRect.left;
-                    glowEl.style.left = x + 'px';
-                    glowEl.style.bottom = '-6px';
-                }
-            };
-
-            // Track on typing, clicking, arrow keys
-            inputArea.addEventListener('keyup', updateGlowPosition);
-            inputArea.addEventListener('click', updateGlowPosition);
-            inputArea.addEventListener('input', () => {
-                requestAnimationFrame(updateGlowPosition);
-            });
-            // Also track focus
-            inputArea.addEventListener('focusin', updateGlowPosition);
-            inputArea.dataset.glowBound = 'true';
-        }
-    }
-
-    function removeGlow() {
-        if (glowEl && glowEl.parentElement) {
-            glowEl.remove();
-        }
-        glowEl = null;
     }
 
     function applyHideUpgrade() {
@@ -222,9 +161,17 @@
     }
 
     // === INPUT FIELD BACKGROUND ===
+    // Skipped when glassmorphism is active — glass needs transparency for blur
     function applyInputBg() {
         const inputArea = document.querySelector('input-area-v2');
         if (!inputArea) return;
+
+        // When glass is active, don't apply background images to input
+        if (GLASS_INTENSITY > 0) {
+            inputArea.style.removeProperty('background-image');
+            inputArea.style.setProperty('background-image', 'none', 'important');
+            return;
+        }
 
         if (INPUT_BG) {
             const d = DARKNESS_INPUT;
