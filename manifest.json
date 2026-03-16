@@ -2,7 +2,7 @@
     "manifest_version": 3,
     "name": "Gemini UI Redesign",
     "description": "Customize your Gemini experience with custom backgrounds",
-    "version": "0.2.14",
+    "version": "0.2.15",
     "permissions": [
         "storage",
         "tabs"

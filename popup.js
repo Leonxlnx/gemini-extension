@@ -12,6 +12,7 @@
     const PREVIEW_IDS = ['preview-bg', 'preview-sidebar', 'preview-input', 'preview-msg'];
 
     const toggleInput = document.getElementById('toggle-backgrounds');
+    const toggleHideUpgrade = document.getElementById('toggle-hide-upgrade');
     const zonesContainer = document.getElementById('zones-container');
 
     // All per-zone darkness sliders
@@ -19,11 +20,14 @@
 
     // === LOAD STATE ===
     function loadState() {
-        chrome.storage.local.get([...KEYS, ...DARKNESS_KEYS, 'backgrounds_enabled'], (data) => {
+        chrome.storage.local.get([...KEYS, ...DARKNESS_KEYS, 'backgrounds_enabled', 'hide_upgrade'], (data) => {
             // Toggle
             const enabled = data.backgrounds_enabled !== false;
             toggleInput.checked = enabled;
             updateDisabledState(enabled);
+
+            // Hide Upgrade toggle
+            toggleHideUpgrade.checked = data.hide_upgrade === true;
 
             // Per-zone darkness sliders
             darknessSliders.forEach(slider => {
@@ -155,6 +159,14 @@
         const enabled = toggleInput.checked;
         chrome.storage.local.set({ backgrounds_enabled: enabled }, () => {
             updateDisabledState(enabled);
+            refreshGeminiTabs();
+        });
+    });
+
+    // === HIDE UPGRADE TOGGLE ===
+    toggleHideUpgrade.addEventListener('change', () => {
+        const hide = toggleHideUpgrade.checked;
+        chrome.storage.local.set({ hide_upgrade: hide }, () => {
             refreshGeminiTabs();
         });
     });

@@ -1,5 +1,5 @@
 /**
- * Gemini UI Redesign — Content Script v0.2.14
+ * Gemini UI Redesign — Content Script v0.2.15
  * - Floating rounded sidebar
  * - Custom background images (from storage or bundled defaults)
  * - Per-zone darkness overlays
@@ -23,6 +23,7 @@
     let INPUT_BG = DEFAULT_MSG;
     let MSG_BG = DEFAULT_MSG;
     let BACKGROUNDS_ENABLED = true;
+    let HIDE_UPGRADE = false;
 
     // === PER-ZONE DARKNESS (0.0 – 0.8) ===
     let DARKNESS_BG = 0.6;
@@ -34,10 +35,11 @@
     function loadImagesFromStorage(callback) {
         chrome.storage.local.get(
             ['bg_custom', 'sidebar_custom', 'input_custom', 'msg_custom',
-                'backgrounds_enabled',
+                'backgrounds_enabled', 'hide_upgrade',
                 'darkness_bg', 'darkness_sidebar', 'darkness_input', 'darkness_msg'],
             (data) => {
                 BACKGROUNDS_ENABLED = data.backgrounds_enabled !== false;
+                HIDE_UPGRADE = data.hide_upgrade === true;
 
                 // Per-zone darkness
                 DARKNESS_BG = (data.darkness_bg ?? 60) / 100;
@@ -62,9 +64,20 @@
         );
     }
 
+    // === HIDE UPGRADE BUTTON ===
+    function applyHideUpgrade() {
+        if (!document.body) return;
+        if (HIDE_UPGRADE) {
+            document.body.classList.add('gemini-ext-hide-upgrade');
+        } else {
+            document.body.classList.remove('gemini-ext-hide-upgrade');
+        }
+    }
+
     // === BODY BACKGROUND ===
     function applyBackground() {
         if (!document.body) return;
+        applyHideUpgrade();
         if (BG_URL) {
             const d = DARKNESS_BG;
             document.body.style.setProperty('background-image', `linear-gradient(rgba(0,0,0,${d}), rgba(0,0,0,${d})), url("${BG_URL}")`, 'important');

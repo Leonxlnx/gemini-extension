@@ -532,3 +532,15 @@ immersive-entry-chip .container:hover {
     background: rgba(28, 28, 33, 0.85) !important;
     border-color: rgba(255, 255, 255, 0.12) !important;
 }
+
+/* ================================
+   HIDE UPGRADE BUTTON (toggle-controlled)
+   Targets the "Upgrade to Google AI Ultra" upsell button
+   in the sidebar navigation area.
+   ================================ */
+body.gemini-ext-hide-upgrade [data-test-id="bard-g1-dynamic-upsell-menu-button"],
+body.gemini-ext-hide-upgrade [data-test-id="bard-upsell-menu-button-icon"],
+body.gemini-ext-hide-upgrade .dynamic-upsell-label,
+body.gemini-ext-hide-upgrade button[aria-label][jslog*="246609"] {
+    display: none !important;
+}
