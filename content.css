@@ -215,9 +215,9 @@ body.gemini-ext-glow input-area-v2 p {
 /* Narrow vertical light beam — tracks caret X, streams downward */
 .gemini-glow-cursor {
     position: absolute;
-    width: 10px;
-    height: 70px;
-    bottom: -12px;
+    width: 8px;
+    height: 50px;
+    bottom: 0px;
     left: 50%;
     pointer-events: none;
     z-index: 9999;
@@ -228,10 +228,15 @@ body.gemini-ext-glow input-area-v2 p {
         var(--glow-color, #a855f7) 30%,
         transparent 100%
     );
-    opacity: var(--glow-intensity, 0.5);
+    opacity: 0;
     filter: blur(7px);
     transition: left 0.06s linear, opacity 0.25s ease;
     transform: translateX(-50%);
+}
+
+/* Only show beam when input is focused (typing) */
+input-area-v2:focus-within .gemini-glow-cursor {
+    opacity: var(--glow-intensity, 0.5);
 }
 
 /* ================================
