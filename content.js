@@ -1,5 +1,5 @@
 /**
- * Gemini UI Redesign — Content Script v0.2.18
+ * Gemini UI Redesign — Content Script v0.2.19
  * - Floating rounded sidebar
  * - Custom background images (from storage or bundled defaults)
  * - Per-zone darkness overlays
@@ -99,16 +99,77 @@
         }
     }
 
-    // === INPUT GLOW (clean caret-color only, no blob) ===
+    // === INPUT GLOW (caret-tracking light beam) ===
+    let glowEl = null;
+
     function applyGlow() {
         if (!document.body) return;
         if (GLOW_INTENSITY > 0) {
             document.body.classList.add('gemini-ext-glow');
             document.body.style.setProperty('--glow-color', GLOW_COLOR);
+            document.body.style.setProperty('--glow-intensity', GLOW_INTENSITY / 100);
+            setupGlowTracking();
         } else {
             document.body.classList.remove('gemini-ext-glow');
             document.body.style.removeProperty('--glow-color');
+            document.body.style.removeProperty('--glow-intensity');
+            removeGlow();
         }
+    }
+
+    function setupGlowTracking() {
+        const inputArea = document.querySelector('input-area-v2');
+        if (!inputArea) return;
+
+        // Create glow element if not exists
+        if (!glowEl || !glowEl.parentElement) {
+            glowEl = document.createElement('div');
+            glowEl.className = 'gemini-glow-cursor';
+            inputArea.appendChild(glowEl);
+        }
+
+        // Position at bottom center initially
+        glowEl.style.bottom = '-4px';
+        glowEl.style.left = '50%';
+
+        // Bind tracking if not already
+        if (!inputArea.dataset.glowBound) {
+            const updateGlowPosition = () => {
+                if (!glowEl || !glowEl.parentElement) return;
+                const sel = window.getSelection();
+                if (!sel || sel.rangeCount === 0) return;
+
+                const range = sel.getRangeAt(0);
+                if (!inputArea.contains(range.startContainer)) return;
+
+                const rects = range.getClientRects();
+                const rect = rects.length > 0 ? rects[0] : range.getBoundingClientRect();
+                const containerRect = inputArea.getBoundingClientRect();
+
+                if (rect && rect.height > 0) {
+                    // Position glow at the caret's X coordinate
+                    const x = (rect.width === 0)
+                        ? rect.left - containerRect.left
+                        : rect.right - containerRect.left;
+                    glowEl.style.left = x + 'px';
+                }
+            };
+
+            inputArea.addEventListener('keyup', updateGlowPosition);
+            inputArea.addEventListener('click', updateGlowPosition);
+            inputArea.addEventListener('input', () => {
+                requestAnimationFrame(updateGlowPosition);
+            });
+            inputArea.addEventListener('focusin', updateGlowPosition);
+            inputArea.dataset.glowBound = 'true';
+        }
+    }
+
+    function removeGlow() {
+        if (glowEl && glowEl.parentElement) {
+            glowEl.remove();
+        }
+        glowEl = null;
     }
 
     function applyHideUpgrade() {

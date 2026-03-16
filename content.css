@@ -195,16 +195,41 @@ body.gemini-ext-glass input-area-v2 .mdc-text-field--no-label {
 }
 
 /* ================================
-   INPUT GLOW — Clean colored caret only (NO blob)
+   INPUT GLOW — Caret-tracking light beam
+   Colored caret + soft glow that follows cursor position
    ================================ */
+body.gemini-ext-glow input-area-v2 {
+    position: relative !important;
+}
 
-/* Color the actual blinking typing cursor — clean, no blob */
+/* Color the blinking typing cursor */
 body.gemini-ext-glow input-area-v2 .ql-editor,
 body.gemini-ext-glow input-area-v2 [contenteditable],
 body.gemini-ext-glow input-area-v2 rich-textarea,
 body.gemini-ext-glow input-area-v2 textarea,
 body.gemini-ext-glow input-area-v2 p {
     caret-color: var(--glow-color, #a855f7) !important;
+}
+
+/* The glow beam — sits at bottom of input, tracks caret X position */
+.gemini-glow-cursor {
+    position: absolute;
+    width: 60px;
+    height: 50px;
+    bottom: -4px;
+    left: 50%;
+    pointer-events: none;
+    z-index: 100;
+    background: radial-gradient(
+        ellipse 30px 25px at center top,
+        var(--glow-color, #a855f7) 0%,
+        rgba(168, 85, 247, 0.4) 30%,
+        transparent 100%
+    );
+    opacity: var(--glow-intensity, 0.5);
+    filter: blur(8px);
+    transition: left 0.05s linear, opacity 0.2s ease;
+    transform: translateX(-50%);
 }
 
 /* ================================
