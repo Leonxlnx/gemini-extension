@@ -1,5 +1,5 @@
 /**
- * Gemini UI Redesign — Content Script v0.2.24
+ * Gemini UI Redesign — Content Script v0.2.25
  * - Floating rounded sidebar
  * - Custom background images (from storage or bundled defaults)
  * - Per-zone darkness overlays
@@ -146,7 +146,10 @@
                     const x = (rect.width === 0)
                         ? rect.left - containerRect.left
                         : rect.right - containerRect.left;
+                    // Position beam starting at the caret's vertical position
+                    const y = rect.top - containerRect.top;
                     glowEl.style.left = x + 'px';
+                    glowEl.style.top = y + 'px';
                     glowEl.classList.add('active');
                 }
             };
