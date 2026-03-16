@@ -212,25 +212,24 @@ body.gemini-ext-glow input-area-v2 p {
     caret-color: var(--glow-color, #a855f7) !important;
 }
 
-/* Thin vertical light beam — positioned at caret, streams downward */
+/* Thin light ray — hangs below input, 1/5 overlaps bottom edge */
 .gemini-glow-cursor {
     position: absolute;
-    width: 4px;
+    width: 3px;
     height: 35px;
-    top: 0;
+    bottom: -28px;
     left: 50%;
     pointer-events: none;
     z-index: 9999;
     background: linear-gradient(
         to bottom,
-        rgba(255, 255, 255, 0.9) 0%,
-        var(--glow-color, #a855f7) 15%,
-        var(--glow-color, #a855f7) 30%,
+        rgba(255, 255, 255, 0.85) 0%,
+        var(--glow-color, #a855f7) 20%,
         transparent 100%
     );
     opacity: 0;
-    filter: blur(4px);
-    transition: left 0.06s linear, top 0.06s linear, opacity 0.25s ease;
+    filter: blur(3px);
+    transition: left 0.06s linear, opacity 0.25s ease;
     transform: translateX(-50%);
     display: none;
 }
